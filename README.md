@@ -16,7 +16,7 @@ GITHUB URL:\
 
 ### Technology Stack
 
-**Frontend**:  
+**Frontend**: JS/HTML/CSS
 **Backend**: TBD  
 **Database**: TBD
 
