@@ -8,11 +8,11 @@ Date Created : 2024/09/19
 ### Links
 
 GITHUB URL:  
- https://github.com/MaxTianwen/WEB322_Assignment  
+https://github.com/MaxTianwen/WEB322_Assignment  
 VERCEL URL:  
- web-322-assignment-theta.vercel.app  
- web-322-assignment-git-main-tianwen-wangs-projects.vercel.app  
- web-322-assignment-48v4kyl9t-tianwen-wangs-projects.vercel.app
+web-322-assignment-theta.vercel.app  
+web-322-assignment-git-main-tianwen-wangs-projects.vercel.app  
+web-322-assignment-48v4kyl9t-tianwen-wangs-projects.vercel.app
 
 ### Technology Stack
 
