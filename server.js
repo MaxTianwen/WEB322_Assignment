@@ -15,11 +15,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/index.html'));
 })
 
-// GET Route for about.html
-app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, '/views/about.html'));
-})
-
 // start the server on the port and output a confirmation to the console
 app.listen(HTTP_PORT, () => console.log(`server listening on: ${HTTP_PORT}`));
 
