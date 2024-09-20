@@ -5,6 +5,8 @@ Student Number: 151583226\
 Student Email: twang118@myseneca.ca\
 Date Created: 2024/09/19
 
+### Links
+
 GITHUB URL:\
  https://github.com/MaxTianwen/WEB322_Assignment
 </br>VERCEL URL:\
