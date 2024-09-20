@@ -6,11 +6,11 @@ Student Email: twang118@myseneca.ca\
 Date Created: 2024/09/19
 
 GITHUB URL:\
-https://github.com/MaxTianwen/WEB322_Assignment\
+ https://github.com/MaxTianwen/WEB322_Assignment</br>
 VERCEL URL:\
-web-322-assignment-theta.vercel.app\
-web-322-assignment-git-main-tianwen-wangs-projects.vercel.app\
-web-322-assignment-7y47byuls-tianwen-wangs-projects.vercel.app
+ web-322-assignment-theta.vercel.app\
+ web-322-assignment-git-main-tianwen-wangs-projects.vercel.app\
+ web-322-assignment-7y47byuls-tianwen-wangs-projects.vercel.app
 
 ### Technology Stack
 
