@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "title": "A Quick Introduction to C++ Programming",
+        "content": "These are brief notes for a quick introduction to C++ programming...",
+        "author": "Julien Tierny",
+        "published": true,
+        "category": "C++"
+    },
+    {
+        "id": 2,
+        "title": "Python Language: What You Need To Know",
+        "content": "Python is one of the world’s most popular computer languages...",
+        "author": "Tom Taulli",
+        "published": true,
+        "category": "Python"
+    }
+]
