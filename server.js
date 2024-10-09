@@ -1,20 +1,29 @@
-// "require" the Express module
-const express = require('express');
-
-// Get the absolute path
 const path = require('path');
-
-// obtain the "app" object
+// Include express module
+const express = require('express');
+// Create app object
 const app = express();
+// Assign a port
+const HTTP_PORT = process.env.PORT || 9000;
 
-// set up a port
-const HTTP_PORT = process.env.PORT || 3000; // Port number: 3000
-
-// GET Route for index.html
+app.use(express.static('public'));
+ 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/views/index.html'));
+    res.redirect('/about');
 })
 
-// start the server on the port and output a confirmation to the console
-app.listen(HTTP_PORT, () => console.log(`server listening on: ${HTTP_PORT}`));
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/about.html'));
+})
 
+app.get('/articles', (req, res) => {
+    res.sendFile(path.join(__dirname + '/data/articles.json'));
+})
+
+app.get('/categories', (req, res) => {
+    res.sendFile(path.join(__dirname + '/data/categories.json'));
+})
+
+app.listen(HTTP_PORT, () => {
+    console.log(`Express http server listening on ${HTTP_PORT}`);
+})
