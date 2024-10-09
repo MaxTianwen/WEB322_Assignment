@@ -62,3 +62,6 @@ function getCategories() {
         }
     });
 }
+
+// Export the functions for other modules
+module.exports = { initialize, getPublishedArticles, getAllArticles, getCategories };
