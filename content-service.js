@@ -1,7 +1,15 @@
+/*
+Name: Tianwen Wang
+Student ID: 151583226
+Email: twang118@myseneca.ca
+Created: 2024/10/06
+Last Modified: 2024/10/09 
+*/
+
 const { json } = require("express");
 const fs = require("fs");
-const articles = [];
-const categories = [];
+let articles = [];
+let categories = [];
 
 function initialize() {
     return new Promise((resolve, reject) => {
@@ -10,14 +18,14 @@ function initialize() {
             if (err) {
                 reject(`unable to read articles.json!`);
             } else {
-                articles = json.parse(data);
+                articles = JSON.parse(data);
 
                 // Read categories.json 
                 fs.readFile('./data/categories.json', 'utf8', (err, data) => {
                     if (err) {
                         reject(`unable to read categories.json!`);
                     } else {
-                        categories = json.parse(data);
+                        categories = JSON.parse(data);
                         resolve();
                     }
                 });
@@ -41,7 +49,7 @@ function getPublishedArticles() {
     return new Promise((resolve, reject) => {
         // Get the articles with published is true
         const pubArticles = articles.filter((article) => {
-            articles.published === true;
+            return article.published === true;
         });
 
         // Check the length of the array is 0
