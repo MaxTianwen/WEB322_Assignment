@@ -3,7 +3,8 @@
 Student Name : Tianwen Wang  
 Student Number: 151583226  
 Student Email : twang118@myseneca.ca  
-Date Created : 2024/09/19
+Date Created : 2024/09/19  
+Date Updated : 2024/10/09
 
 ## About The Project
 
@@ -14,7 +15,7 @@ This is my WEB322 assignment project.
 This project structure is built using
 
 - [Express.js](https://expressjs.com/)
-- [Node.js](https://nodejs.org/en)
+- [Node.js](https://nodejs.org/en)  
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -31,7 +32,7 @@ web-322-assignment-48v4kyl9t-tianwen-wangs-projects.vercel.app
 
 **Frontend**: JS/HTML/CSS  
 **Backend**: TBD  
-**Database**: TBD
+**Database**: TBD  
 
 ## Getting Started
 
