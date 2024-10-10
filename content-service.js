@@ -11,27 +11,46 @@ const fs = require("fs");
 let articles = [];
 let categories = [];
 
-function initialize() {
-    return new Promise((resolve, reject) => {
-        // Read articles.json
-        fs.readFile('./data/articles.json', 'utf8', (err, data) => {
-            if (err) {
-                reject(`unable to read articles.json!`);
-            } else {
-                articles = JSON.parse(data);
-                // Read categories.json 
-                return fs.readFile('./data/categories.json', 'utf8', (err, data) => {
-                    if (err) {
-                        reject(`unable to read categories.json!`);
-                    } else {
-                        categories = JSON.parse(data);
-                        resolve();
-                    }
-                });
-            }
-        });
-    });
-}
+// function initialize() {
+//     return new Promise((resolve, reject) => {
+//         // Read articles.json
+//         fs.readFile('./data/articles.json', 'utf8', (err, data) => {
+//             if (err) {
+//                 reject(`unable to read articles.json!`);
+//             } else {
+//                 articles = JSON.parse(data);
+//                 // Read categories.json
+//                 fs.readFile('./data/categories.json', 'utf8', (err, data) => {
+//                     if (err) {
+//                         reject(`unable to read categories.json!`);
+//                     } else {
+//                         categories = JSON.parse(data);
+//                         resolve();
+//                     }
+//                 });
+//             }
+//         });
+//     });
+// }
+
+initialize = function () {
+  return new Promise((resolve, reject) => {
+    //first read articles.json
+    fs.readFile("./data/articles.json", "utf8")
+      .then((data) => {
+        articles = JSON.parse(data);
+        return fs.readFile("./data/categories.json", "utf8");
+      })
+      .then((data) => {
+        categories = JSON.parse(data);
+
+        resolve();
+      })
+      .catch((err) => {
+        reject("unable to read file");
+      });
+  });
+};
 
 function getAllArticles() {
     return new Promise((resolve, reject) => {
