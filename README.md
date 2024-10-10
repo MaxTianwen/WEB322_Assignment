@@ -24,9 +24,9 @@ This project structure is built using
 GITHUB URL:  
 https://github.com/MaxTianwen/WEB322_Assignment  
 VERCEL URL:  
-<a href="web-322-assignment-theta.vercel.app">Domain 1</a>  
-<a href="web-322-assignment-git-main-tianwen-wangs-projects.vercel.app">Domain 2</a>    
-<a href="web-322-assignment-48v4kyl9t-tianwen-wangs-projects.vercel.app">Domain 3</a>
+web-322-assignment-theta.vercel.app  
+web-322-assignment-git-main-tianwen-wangs-projects.vercel.app  
+web-322-assignment-48v4kyl9t-tianwen-wangs-projects.vercel.app
 
 ### Technology Stack
 
