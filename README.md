@@ -26,7 +26,7 @@ https://github.com/MaxTianwen/WEB322_Assignment
 VERCEL URL:  
 [web-322-assignment-theta.vercel.app  ](https://vercel.live/link/web-322-assignment-theta.vercel.app?via=deployment-domains-list&p=1)  
 [web-322-assignment-git-main-tianwen-wangs-projects.vercel.app  ](https://vercel.live/link/web-322-assignment-git-main-tianwen-wangs-projects.vercel.app?via=deployment-domains-list&p=1)  
-[web-322-assignment-48v4kyl9t-tianwen-wangs-projects.vercel.app](https://vercel.live/link/web-322-assignment-25awvzlrr-tianwen-wangs-projects.vercel.app?via=deployment-domains-list&p=1)  
+[web-322-assignment-fccd1uodc-tianwen-wangs-projects.vercel.app](https://vercel.live/link/web-322-assignment-25awvzlrr-tianwen-wangs-projects.vercel.app?via=deployment-domains-list&p=1)  
 
 ### Technology Stack
 

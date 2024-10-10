@@ -26,6 +26,7 @@ initialize().then(() => {
     console.log(err);
   });
 
+// Redirect to about.html
 app.get('/', (req, res) => {
   res.redirect('/about');
 })
@@ -34,6 +35,7 @@ app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname + '/views/about.html'));
 })
 
+// Load all articles from articles.json
 app.get('/articles', (req, res) => {
   getAllArticles()
     .then((data) => {
@@ -44,6 +46,7 @@ app.get('/articles', (req, res) => {
     });
 })
 
+// Load all categories from categories.json
 app.get('/categories', (req, res) => {
   getCategories()
     .then((data) => {
@@ -57,5 +60,3 @@ app.get('/categories', (req, res) => {
 app.listen(HTTP_PORT, () => {
   console.log(`Express http server listening on ${HTTP_PORT}`);
 })
-
-
