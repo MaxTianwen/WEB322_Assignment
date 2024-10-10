@@ -19,9 +19,8 @@ function initialize() {
                 reject(`unable to read articles.json!`);
             } else {
                 articles = JSON.parse(data);
-
                 // Read categories.json 
-                fs.readFile('./data/categories.json', 'utf8', (err, data) => {
+                return fs.readFile('./data/categories.json', 'utf8', (err, data) => {
                     if (err) {
                         reject(`unable to read categories.json!`);
                     } else {
