@@ -58,4 +58,4 @@ app.listen(HTTP_PORT, () => {
   console.log(`Express http server listening on ${HTTP_PORT}`);
 })
 
-module.exports = app;
+
