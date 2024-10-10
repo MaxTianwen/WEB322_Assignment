@@ -21,38 +21,41 @@ app.use(express.static('public'));
 
 // Initialize data
 initialize().then(() => {
-  console.log('Initialization successful');
-  app.get('/', (req, res) => {
-    res.redirect('/about');
-  })
+    console.log('Initialization successful');
+  }).catch((err) => {
+    console.log(err);
+  });
 
-  app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/about.html'));
-  })
+app.get('/', (req, res) => {
+  res.redirect('/about');
+})
 
-  app.get('/articles', (req, res) => {
-    getAllArticles()
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.json({ message: err });
-      });
-  })
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname + '/views/about.html'));
+})
 
-  app.get('/categories', (req, res) => {
-    getCategories()
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.json({ message: err });
-      });
-  })
+app.get('/articles', (req, res) => {
+  getAllArticles()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json({ message: err });
+    });
+})
 
-  app.listen(HTTP_PORT, () => {
-    console.log(`Express http server listening on ${HTTP_PORT}`);
-  })
-}).catch((err) => {
-  console.log(err);
-});
+app.get('/categories', (req, res) => {
+  getCategories()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json({ message: err });
+    });
+})
+
+app.listen(HTTP_PORT, () => {
+  console.log(`Express http server listening on ${HTTP_PORT}`);
+})
+
+module.exports = app;
