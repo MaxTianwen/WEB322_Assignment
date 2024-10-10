@@ -10,19 +10,18 @@ const { json } = require("express");
 const fs = require("fs");
 let articles = [];
 let categories = [];
-const path = require('path');
 
 function initialize() {
     return new Promise((resolve, reject) => {
         // Read articles.json
-        fs.readFile(path.join(__dirname + '/data/articles.json'), 'utf8', (err, data) => {
+        fs.readFile('data/articles.json', 'utf8', (err, data) => {
             if (err) {
                 reject(`unable to read articles.json!`);
             } else {
                 articles = JSON.parse(data);
 
                 // Read categories.json 
-                fs.readFile(path.join(__dirname + '/data/categories.json'), 'utf8', (err, data) => {
+                fs.readFile('data/categories.json', 'utf8', (err, data) => {
                     if (err) {
                         reject(`unable to read categories.json!`);
                     } else {
