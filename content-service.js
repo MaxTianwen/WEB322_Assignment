@@ -34,17 +34,6 @@ function initialize() {
     });
 }
 
-function getAllArticles() {
-    return new Promise((resolve, reject) => {
-        // Check if the length is 0 and return the articles array
-        if (articles.length > 0) {
-            resolve(articles);
-        } else {
-            reject(`No results returned!`);
-        }
-    })
-}
-
 function getPublishedArticles() {
     return new Promise((resolve, reject) => {
         // Get the articles with published is true
@@ -59,6 +48,17 @@ function getPublishedArticles() {
             reject(`No results returned!`);
         }
     });
+}
+
+function getAllArticles() {
+    return new Promise((resolve, reject) => {
+        // Check if the length is 0 and return the articles array
+        if (articles.length > 0) {
+            resolve(articles);
+        } else {
+            reject(`No results returned!`);
+        }
+    })
 }
 
 function getCategories() {
