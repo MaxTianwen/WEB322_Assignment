@@ -14,14 +14,14 @@ let categories = [];
 function initialize() {
     return new Promise((resolve, reject) => {
         // Read articles.json
-        fs.readFile('data/articles.json', 'utf8', (err, data) => {
+        fs.readFile('./data/articles.json', 'utf8', (err, data) => {
             if (err) {
                 reject(`unable to read articles.json!`);
             } else {
                 articles = JSON.parse(data);
 
                 // Read categories.json 
-                fs.readFile('data/categories.json', 'utf8', (err, data) => {
+                fs.readFile('./data/categories.json', 'utf8', (err, data) => {
                     if (err) {
                         reject(`unable to read categories.json!`);
                     } else {

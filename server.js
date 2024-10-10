@@ -33,7 +33,7 @@ initialize()
   });
 
 app.get('/about', (req, res) => {
-  res.sendFile('/views/about.html');
+  res.sendFile(path.join(__dirname + '/views/about.html'));
 })
 
 app.get('/articles', (req, res) => {
