@@ -7,7 +7,7 @@ Last Modified: 2024/10/10
 */
 
 // Import content-service module
-const { initialize, getPublishedArticles, getAllArticles, getCategories,  } = require('./content-service')
+const { initialize, getPublishedArticles, getAllArticles, getCategories  } = require('./content-service')
 
 const path = require('path');
 // Include express module

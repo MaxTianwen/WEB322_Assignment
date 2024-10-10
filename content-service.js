@@ -6,7 +6,6 @@ Created: 2024/10/06
 Last Modified: 2024/10/10 
 */
 
-const { json } = require("express");
 const fs = require("fs");
 let articles = [];
 let categories = [];
