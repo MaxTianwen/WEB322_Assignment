@@ -3,24 +3,25 @@ Name: Tianwen Wang
 Student ID: 151583226
 Email: twang118@myseneca.ca
 Created: 2024/10/06
-Last Modified: 2024/10/09 
+Last Modified: 2024/10/10 
 */
 
 const { json } = require("express");
 const fs = require("fs");
 let articles = [];
 let categories = [];
+const path1 = require('path');
 
 function initialize() {
     return new Promise((resolve, reject) => {
         // Read articles.json
-        fs.readFile('./data/articles.json', 'utf8', (err, data) => {
+        fs.readFile(path1.join(__dirname + '/data/articles.json'), 'utf8', (err, data) => {
             if (err) {
                 reject(`unable to read articles.json!`);
             } else {
                 articles = JSON.parse(data);
                 // Read categories.json 
-                fs.readFile('./data/categories.json', 'utf8', (err, data) => {
+                fs.readFile(path1.join(__dirname + '/data/categories.json'), 'utf8', (err, data) => {
                     if (err) {
                         reject(`unable to read categories.json!`);
                     } else {

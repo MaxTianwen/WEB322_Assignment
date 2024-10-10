@@ -3,7 +3,7 @@ Name: Tianwen Wang
 Student ID: 151583226
 Email: twang118@myseneca.ca
 Created: 2024/10/06
-Last Modified: 2024/10/09 
+Last Modified: 2024/10/10 
 */
 
 // Import content-service module
@@ -30,6 +30,9 @@ initialize()
           res.json({ message: err });
         })
     });
+  })
+  .catch(err => {
+    res.json({ message: err });
   });
 
 app.get('/about', (req, res) => {
