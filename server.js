@@ -32,7 +32,7 @@ initialize()
     });
   })
   .catch(err => {
-    res.json({ message: err });
+    console.log(err);
   });
 
 app.get('/about', (req, res) => {
