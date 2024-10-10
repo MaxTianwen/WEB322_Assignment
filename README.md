@@ -56,9 +56,9 @@ Before installation, make sure you have the following prerequisites:
 
 1.  Go to the main project folder (WEB322_ASSIGNMENTS)
 2.  Start the server
-`sh
+    ```sh
     node server.js
-    `
+    ```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Notes
