@@ -5,6 +5,7 @@ const fs = require("fs");
 let categories = [];
 let articles = [];
 
+/* Initializers */
 // Function to initialize data by loading categories and articles from JSON files
 function initialize() {
   return new Promise((resolve, reject) => {
@@ -31,6 +32,7 @@ function initialize() {
   });
 }
 
+/* Queries */
 // Function to get only published articles by filtering the articles array
 function getPublishedArticles() {
   return Promise.resolve(articles.filter(article => article.published)); // Return only articles with `published: true`
@@ -46,5 +48,62 @@ function getArticles() {
   return Promise.resolve(articles); // Return the articles array as a resolved promise
 }
 
+// Function to get articles by category
+function getArticlesByCategory(category) {
+  return new Promise((resolve, reject) => {
+    // Filter the articles array to get only articles with the specified category
+    const filteredArticles = articles.filter(article => article.category === Number(category));
+    if (filteredArticles.length > 0) {
+      resolve(filteredArticles);
+    } else {
+      reject("no results returned");
+    }
+  });
+};
+
+// Function to get articles by min date
+function getArticlesByMinDate(minDateStr) {
+  return new Promise((resolve, reject) => {
+    // Filter the articles array to get articles that are newer than the specified min date
+    const minDate = new Date(minDateStr);
+    const filteredArticles = articles.filter(article => new Date(article.articleDate) >= minDate);
+
+    // Check if the filtered articles array has any results
+    if (filteredArticles.length > 0) {
+      resolve(filteredArticles);
+    } else {
+      reject("no results returned");
+    }
+  });
+};
+
+// Function to get articles by ID
+function getArticlesById(id) {
+  return new Promise((resolve, reject) => {
+    // Check if the article with the input ID exists in the articles array
+    const foundArticle = articles.find(article => article.id === Number(id));
+    if (foundArticle) {
+      resolve(foundArticle);
+    } else {
+      reject("no results returned");
+    }
+  });
+};
+
+/* Modifiers */
+// Function to add a new article
+function addArticle(articleData) {
+  return new Promise((resolve, reject) => {
+    // Check if the new article is published and set a new id for it
+    articleData.published = articleData.published ? true : false;
+    articleData.id = articles.length + 1;
+
+    // Push the new article to the articles array
+    articles.push(articleData);
+    resolve(articleData);
+  });
+};
+
+/* Exports */
 // Export the functions as an object to make them available to other files
-module.exports = { initialize, getCategories, getArticles };
+module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById };
