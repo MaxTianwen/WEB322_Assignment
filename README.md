@@ -1,67 +1,43 @@
-# Web322 Assignment
 
-Student Name : Tianwen Wang  
-Student Number: 151583226  
-Student Email : twang118@myseneca.ca  
-Date Created : 2024/09/19  
-Date Updated : 2024/10/09
+# News Website / Blog
 
-## About The Project
+A simple Node.js API that reads articles from a JSON file and returns only the published articles. Built with Express, this site is ready for local development and can be easily deployed.
 
-This is my WEB322 assignment project.
+## Prerequisites
 
-### Built With
+Make sure you have **Node.js** and **npm** installed on your machine.
 
-This project structure is built using
+## Installation
 
-- [Express.js](https://expressjs.com/)
-- [Node.js](https://nodejs.org/en)  
+1. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+## Available Scripts
 
-### Links
+In the project directory, you can run:
 
-GITHUB URL:  
-https://github.com/MaxTianwen/WEB322_Assignment  
-VERCEL URL:  
-[web-322-assignment-theta.vercel.app  ](https://vercel.live/link/web-322-assignment-theta.vercel.app?via=deployment-domains-list&p=1)  
-[web-322-assignment-git-main-tianwen-wangs-projects.vercel.app  ](https://vercel.live/link/web-322-assignment-git-main-tianwen-wangs-projects.vercel.app?via=deployment-domains-list&p=1)  
-[web-322-assignment-fccd1uodc-tianwen-wangs-projects.vercel.app](https://vercel.live/link/web-322-assignment-25awvzlrr-tianwen-wangs-projects.vercel.app?via=deployment-domains-list&p=1)  
+```bash
+node index.js
+```
 
-### Technology Stack
+### `index.js` Setup
 
-**Frontend**: JS/HTML/CSS  
-**Backend**: TBD  
-**Database**: TBD  
+The `index.js` file reads from the `articles.json` and `categories.json` file located in the `data` folder and serves API routes using Express.
 
-## Getting Started
+### Required Packages
 
-To start project, just clone this repo or download the files.
+Install these packages if not already done via `npm install`:
+```bash
+npm install express
+```
 
-### Prerequisites
+## Running the Server
 
-Before installation, make sure you have the following prerequisites:
+1. After setting up the project, run the following command to start the server:
+   ```bash
+   node index.js
+   ```
 
-- NPM
-  ```sh
-  npm install -g npm
-  ```
-- EXPRESS.js
-  ```sh
-  npm install express
-  ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### How to Run
-
-1.  Go to the main project folder (WEB322_ASSIGNMENTS)
-2.  Start the server
-    ```sh
-    node server.js
-    ```
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-## Notes
-
-By submitting this as my assignment, I declare that this assignment is my own work in accordance with Seneca Academic Policy. No part of this assignment has been copied manually or electronically from any other source (including web sites) or distributed to other students.
+2. Open your browser to navigate to `http://localhost:3838` 
