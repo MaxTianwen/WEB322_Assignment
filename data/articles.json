@@ -1,18 +1,48 @@
 [
     {
-        "id": 1,
-        "title": "A Quick Introduction to C++ Programming",
-        "content": "These are brief notes for a quick introduction to C++ programming...",
-        "author": "Julien Tierny",
-        "published": true,
-        "category": "C++"
+      "Id": 1,
+      "title": "The Rise of Artificial Intelligence",
+      "content": "Artificial Intelligence (AI) has become a transformative force in various industries, revolutionizing how we interact with technology. From automating mundane tasks to providing predictive insights, AI is changing the business landscape. This article explores the growing influence of AI and its potential impact on future job markets.",
+      "author": "Alice Johnson",
+      "published": true,
+      "category": 1,
+      "articleDate": "2024-01-15"
     },
     {
-        "id": 2,
-        "title": "Python Language: What You Need To Know",
-        "content": "Python is one of the world’s most popular computer languages...",
-        "author": "Tom Taulli",
-        "published": true,
-        "category": "Python"
+      "Id": 2,
+      "title": "Machine Learning Techniques for Beginners",
+      "content": "Machine learning is a subset of AI that allows systems to learn and improve from experience without being explicitly programmed. This article breaks down beginner-friendly techniques such as linear regression and decision trees. It's an ideal starting point for anyone interested in the world of data-driven algorithms.",
+      "author": "Bob Smith",
+      "published": true,
+      "category": 2,
+      "articleDate": "2024-01-20"
+    },
+    {
+      "Id": 3,
+      "title": "Cybersecurity Tips for Small Businesses",
+      "content": "Cybersecurity is crucial for small businesses to protect against data breaches and cyber attacks. This guide covers essential tips, such as strong password policies, regular software updates, and employee training. Implementing these practices can significantly reduce the risk of cyber threats.",
+      "author": "Carol White",
+      "published": false,
+      "category": 3,
+      "articleDate": "2024-02-05"
+    },
+    {
+      "Id": 4,
+      "title": "Understanding Blockchain Technology",
+      "content": "Blockchain technology provides a decentralized way of recording transactions, making it more secure and transparent. In this article, we dive into the basics of blockchain, how it works, and potential applications beyond cryptocurrency. The technology holds promise for industries ranging from finance to healthcare.",
+      "author": "Dave Lee",
+      "published": true,
+      "category": 4,
+      "articleDate": "2024-02-10"
+    },
+    {
+      "Id": 5,
+      "title": "Cloud Computing Advantages",
+      "content": "Cloud computing offers flexible resources that can scale to meet a business's changing needs. This article discusses the primary benefits of cloud adoption, including cost savings, enhanced collaboration, and improved data accessibility. As more companies embrace remote work, cloud solutions are becoming even more critical.",
+      "author": "Emma King",
+      "published": false,
+      "category": 5,
+      "articleDate": "2024-02-15"
     }
-]
+  ]
+  

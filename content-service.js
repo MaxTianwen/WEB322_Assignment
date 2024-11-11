@@ -1,74 +1,50 @@
-/*
-Name: Tianwen Wang
-Student ID: 151583226
-Email: twang118@myseneca.ca
-Created: 2024/10/06
-Last Modified: 2024/10/10 
-*/
-
+// Import the 'fs' module for interacting with the file system
 const fs = require("fs");
-let articles = [];
+
+// Arrays to store categories and articles data loaded from JSON files
 let categories = [];
-const path1 = require('path');
+let articles = [];
 
+// Function to initialize data by loading categories and articles from JSON files
 function initialize() {
-    return new Promise((resolve, reject) => {
-        // Read articles.json
-        fs.readFile(path1.join(__dirname + '/data/articles.json'), 'utf8', (err, data) => {
-            if (err) {
-                reject(`unable to read articles.json!`);
-            } else {
-                articles = JSON.parse(data);
-                // Read categories.json 
-                fs.readFile(path1.join(__dirname + '/data/categories.json'), 'utf8', (err, data) => {
-                    if (err) {
-                        reject(`unable to read categories.json!`);
-                    } else {
-                        categories = JSON.parse(data);
-                        resolve();
-                    }
-                });
-            }
-        });
+  return new Promise((resolve, reject) => {
+    // Read the categories data from categories.json file
+    fs.readFile("./data/categories.json", "utf8", (err, cat) => {
+      if (err) return reject(err); // Reject the promise if an error occurs during file read
+      categories = JSON.parse(cat); // Parse and store categories data
+
+      // Nested readFile for articles.json
+      // We nest the second file read inside the first because we want to ensure that categories.json
+      // is successfully read and parsed before moving on to articles.json.
+      // This way, we load both files sequentially and can handle any errors independently.
+      fs.readFile("./data/articles.json", "utf8", (err, art) => {
+        if (err) return reject(err); // Reject the promise if an error occurs during file read
+        articles = JSON.parse(art); // Parse and store articles data
+        
+        // We call resolve() only once, after both files have been successfully read and parsed.
+        // Calling resolve() here signifies that initialization is complete and both categories
+        // and articles data are ready for use. If we called resolve() earlier, it would 
+        // prematurely indicate that initialization was complete before loading both files.
+        resolve(); 
+      });
     });
+  });
 }
 
+// Function to get only published articles by filtering the articles array
 function getPublishedArticles() {
-    return new Promise((resolve, reject) => {
-        // Get the articles with published is true
-        const pubArticles = articles.filter((article) => {
-            return article.published === true;
-        });
-
-        // Check the length of the array is 0
-        if (pubArticles.length > 0) {
-            resolve(pubArticles);
-        } else {
-            reject(`No results returned!`);
-        }
-    });
+  return Promise.resolve(articles.filter(article => article.published)); // Return only articles with `published: true`
 }
 
-function getAllArticles() {
-    return new Promise((resolve, reject) => {
-        // Check if the length is 0 and return the articles array
-        if (articles.length > 0) {
-            resolve(articles);
-        } else {
-            reject(`No results returned!`);
-        }
-    })
-}
-
+// Function to get all categories
 function getCategories() {
-    return new Promise((resolve, reject) => {
-        if (categories.length > 0) {
-            resolve(categories);
-        } else {
-            reject("no results returned");
-        }
-    });
+  return Promise.resolve(categories); // Return the categories array as a resolved promise
 }
 
-// Export the functions for other modules
-module.exports = { initialize, getPublishedArticles, getAllArticles, getCategories };
+// Function to get all articles
+function getArticles() {
+  return Promise.resolve(articles); // Return the articles array as a resolved promise
+}
+
+// Export the functions as an object to make them available to other files
+module.exports = { initialize, getCategories, getArticles };

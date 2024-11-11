@@ -1,10 +1,23 @@
 [
-    {
-        "id": 1, 
-        "name": "C++"
-    },
-    {
-        "id": 2, 
-        "name": "Python"
-    }
-]
+    { "Id": 1, "Name": "Artificial Intelligence" },
+    { "Id": 2, "Name": "Machine Learning" },
+    { "Id": 3, "Name": "Cybersecurity" },
+    { "Id": 4, "Name": "Blockchain" },
+    { "Id": 5, "Name": "Cloud Computing" },
+    { "Id": 6, "Name": "Data Science" },
+    { "Id": 7, "Name": "Internet of Things" },
+    { "Id": 8, "Name": "Augmented Reality" },
+    { "Id": 9, "Name": "Virtual Reality" },
+    { "Id": 10, "Name": "Big Data" },
+    { "Id": 11, "Name": "Quantum Computing" },
+    { "Id": 12, "Name": "Mobile Development" },
+    { "Id": 13, "Name": "Web Development" },
+    { "Id": 14, "Name": "DevOps" },
+    { "Id": 15, "Name": "E-commerce" },
+    { "Id": 16, "Name": "Digital Marketing" },
+    { "Id": 17, "Name": "3D Printing" },
+    { "Id": 18, "Name": "Robotics" },
+    { "Id": 19, "Name": "Game Development" },
+    { "Id": 20, "Name": "Wearable Technology" }
+  ]
+  

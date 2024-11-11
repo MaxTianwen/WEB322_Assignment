@@ -1,62 +1,50 @@
-/*
-Name: Tianwen Wang
-Student ID: 151583226
-Email: twang118@myseneca.ca
-Created: 2024/10/06
-Last Modified: 2024/10/10 
-*/
+// Import the Express library
+const express = require("express");
 
-// Import content-service module
-const { initialize, getPublishedArticles, getAllArticles, getCategories  } = require('./content-service')
+// Import the 'path' module to handle file paths
+const path = require("path");
 
-const path = require('path');
-// Include express module
-const express = require('express');
-// Create app object
+// Import the custom data handling module, assumed to manage categories and articles
+const storeData = require("./content-service");
+
+// Create an Express application instance
 const app = express();
-// Assign a port
-const HTTP_PORT = process.env.PORT || 9000;
 
-app.use(express.static('public'));
+// Set the HTTP port to an environment variable or default to 3838
+const HTTP_PORT = process.env.PORT || 3838;
 
-// Initialize data
-initialize().then(() => {
-    console.log('Initialization successful');
-  }).catch((err) => {
-    console.log(err);
+// Serve static files from the "public" directory (e.g., CSS, JS files, images)
+app.use(express.static("public"));
+
+// Route for the root path, redirecting to the "/about" page
+app.get("/", (req, res) => {
+  res.redirect("/about");
+});
+
+// Route for the "/about" page, serving the "about.html" file
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "/views/about.html"));
+});
+
+// Route for the "/categories" endpoint, returning categories in JSON format
+app.get("/categories", (req, res) => {
+  storeData.getCategories().then((data) => {
+    res.json(data); // Respond with categories as JSON
   });
+});
 
-// Redirect to about.html
-app.get('/', (req, res) => {
-  res.redirect('/about');
-})
+// Route for the "/articles" endpoint, returning articles in JSON format
+app.get("/articles", (req, res) => {
+  storeData.getArticles().then((data) => {
+    res.json(data); // Respond with articles as JSON
+  });
+});
 
-app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname + '/views/about.html'));
-})
+// Initialize the data in the storeData module, then start the server
+storeData.initialize().then(() => {
+  app.listen(HTTP_PORT); // Start server and listen on specified port
+  console.log("server listening @ http://localhost:" + HTTP_PORT);
+});
 
-// Load all articles from articles.json
-app.get('/articles', (req, res) => {
-  getAllArticles()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json({ message: err });
-    });
-})
-
-// Load all categories from categories.json
-app.get('/categories', (req, res) => {
-  getCategories()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json({ message: err });
-    });
-})
-
-app.listen(HTTP_PORT, () => {
-  console.log(`Express http server listening on ${HTTP_PORT}`);
-})
+// Export the Express app instance (useful for testing or external usage)
+module.exports = app;
