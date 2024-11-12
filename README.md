@@ -1,7 +1,12 @@
-
-# News Website / Blog
+# WEB322 Assignments
 
 A simple Node.js API that reads articles from a JSON file and returns only the published articles. Built with Express, this site is ready for local development and can be easily deployed.
+
+## Vercel URL
+
+https://web-322-assignment-theta.vercel.app/
+https://web-322-assignment-git-main-tianwen-wangs-projects.vercel.app/
+https://web-322-assignment-ctw76f3g6-tianwen-wangs-projects.vercel.app/
 
 ## Prerequisites
 
@@ -10,9 +15,10 @@ Make sure you have **Node.js** and **npm** installed on your machine.
 ## Installation
 
 1. Install the dependencies:
-   ```bash
-   npm install
-   ```
+
+```bash
+npm install
+```
 
 ## Available Scripts
 
@@ -29,6 +35,7 @@ The `index.js` file reads from the `articles.json` and `categories.json` file lo
 ### Required Packages
 
 Install these packages if not already done via `npm install`:
+
 ```bash
 npm install express
 ```
@@ -36,8 +43,9 @@ npm install express
 ## Running the Server
 
 1. After setting up the project, run the following command to start the server:
+
    ```bash
    node index.js
    ```
 
-2. Open your browser to navigate to `http://localhost:3838` 
+2. Open your browser to navigate to `http://localhost:3838`
