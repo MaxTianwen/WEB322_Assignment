@@ -4,8 +4,8 @@ A simple Node.js API that reads articles from a JSON file and returns only the p
 
 ## Vercel URL
 
-https://web-322-assignment-theta.vercel.app/
-https://web-322-assignment-git-main-tianwen-wangs-projects.vercel.app/
+https://web-322-assignment-theta.vercel.app/  
+https://web-322-assignment-git-main-tianwen-wangs-projects.vercel.app/  
 https://web-322-assignment-ctw76f3g6-tianwen-wangs-projects.vercel.app/
 
 ## Prerequisites
