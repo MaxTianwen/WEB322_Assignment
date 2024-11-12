@@ -44,8 +44,8 @@ npm install express
 
 1. After setting up the project, run the following command to start the server:
 
-   ```bash
-   node index.js
-   ```
+```bash
+node index.js
+```
 
 2. Open your browser to navigate to `http://localhost:3838`
