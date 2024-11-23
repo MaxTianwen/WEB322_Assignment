@@ -50,16 +50,26 @@ app.get("/articles", (req, res) => {
   // Get articles based on the query parameters
   if (category) {
     storeData.getArticlesByCategory(category)
-      .then(data => { res.json(data) })
-      .catch(err => { res.status(404).json({ message: `Category ${category} does not exist!`, error: err }) });
+      .then(data => {
+        res.render("articles", { articles: data });
+      })
+      .catch(err => {
+        res.status(404).json({ message: `Category ${category} does not exist!`, error: err })
+      });
   } else if (minDate) {
     storeData.getArticlesByMinDate(minDate)
-      .then(data => { res.json(data) })
-      .catch(err => { res.status(404).json({ message: `No articles newer than ${minDate}`, error: err }) });
+      .then(data => {
+        res.render("articles", { articles: data });
+      })
+      .catch(err => {
+        res.status(404).json({ message: `No articles newer than ${minDate}`, error: err })
+      });
   } else {
-    storeData.getArticles().then((data) => {
-      res.json(data);
-  })}
+    storeData.getArticles()
+      .then(data => {
+        res.render("articles", { articles: data });
+      });
+  }
 });
 
 // Route for the "addArticle" endpoint, serving the "add-article.html" file

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Include Header with Navigation -->
+    <%- include('partials/header', {page: '/articles'}) %>
+
+    <!-- Content Area -->
+    <main class="container my-4">
+        <div class="content p-4 bg-light">
+            <h2>Articles</h2>
+
+            <!-- Deal with no data found -->
+            <% if (!articles || articles.length === 0) { %>
+                <p>No articles found!</p>
+            <% } else { %>
+                <!-- Display Articles -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Published</th>
+                            <th>Category</th>
+                            <th>Article Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% articles.forEach(article => { %>
+                            <tr>
+                                <td><a href="/articles/<%= article.id %>"><%= article.title %></a></td>
+                                <td><%= article.author %></td>
+                                <td><%= article.published %></td>
+                                <td><a href="/articles?category=<%= article.category %>"><%= article.category %></a></td>
+                                <td><%= article.articleDate %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
