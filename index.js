@@ -18,9 +18,13 @@ cloudinary.config({
 });
 const upload = multer();
 
+// Set EJS as the templating engine
+app.set("view engine", "ejs");
+
 // Use Middleware
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname + "public")));
 app.use(express.urlencoded({ extended: true }));
+
 
 // Route for the root path, redirecting to the "/about" page
 app.get("/", (req, res) => {
@@ -29,7 +33,7 @@ app.get("/", (req, res) => {
 
 // Route for the "/about" page, serving the "about.html" file
 app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "/views/about.html"));
+  res.render("about");
 });
 
 // Route for the "/categories" endpoint, returning categories in JSON format
@@ -60,7 +64,7 @@ app.get("/articles", (req, res) => {
 
 // Route for the "addArticle" endpoint, serving the "add-article.html" file
 app.get("/articles/add", (req, res) => {
-  res.sendFile(path.join(__dirname, "/views/addArticle.html"));
+  res.render("addArticle");
 });
 
 // Get articles by ID
