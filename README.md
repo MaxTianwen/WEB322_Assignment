@@ -38,6 +38,7 @@ Install these packages if not already done via `npm install`:
 
 ```bash
 npm install express
+npm install ejs
 ```
 
 ## Running the Server
@@ -49,3 +50,13 @@ node index.js
 ```
 
 2. Open your browser to navigate to `http://localhost:3838`
+
+## Revisions:
+
+1. Modified Articles route and use EJS module.
+
+2. Updated Categories pages to show the correct category name based on user's choice.
+
+3. Added Article page to view each single article properly.
+
+4. Optimized pages style.

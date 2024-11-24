@@ -79,7 +79,13 @@ app.get("/articles", (req, res) => {
 
 // Route for the "addArticle" endpoint, serving the "add-article.html" file
 app.get("/articles/add", (req, res) => {
-  res.render("addArticle");
+  storeData.getCategories()
+    .then(categories => {
+    res.render("addArticle", { categories: categories });
+    })
+    .catch(err => {
+    res.status(404).render("404", { message: "No categories found." });
+  })
 });
 
 // Get articles by ID
