@@ -38,9 +38,13 @@ app.get("/about", (req, res) => {
 
 // Route for the "/categories" endpoint, returning categories in JSON format
 app.get("/categories", (req, res) => {
-  storeData.getCategories().then((data) => {
-    res.json(data); // Respond with categories as JSON
-  });
+  storeData.getCategories()
+    .then(data => {
+      res.render("categories", { categories: data }); // Render categories.ejs
+    })
+    .catch(err => {
+      res.status(404).render("404", { message: "No categories found." });
+    });
 });
 
 // Route for the "/articles" endpoint, returning articles in JSON format
