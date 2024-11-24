@@ -35,7 +35,10 @@ function initialize() {
 /* Queries */
 // Function to get only published articles by filtering the articles array
 function getPublishedArticles() {
-  return Promise.resolve(articles.filter(article => article.published)); // Return only articles with `published: true`
+  return Promise.resolve(articles
+    .filter(article => article.published)) // Return only articles with `published: true`
+    .map(article => addCategoryToArticle(article) // Add category name to each article
+  );
 }
 
 // Function to get all categories
@@ -45,14 +48,19 @@ function getCategories() {
 
 // Function to get all articles
 function getArticles() {
-  return Promise.resolve(articles); // Return the articles array as a resolved promise
+  return Promise.resolve(articles
+    .map(article => addCategoryToArticle(article)) // Add category name to each article
+  );
 }
 
 // Function to get articles by category
 function getArticlesByCategory(category) {
   return new Promise((resolve, reject) => {
     // Filter the articles array to get only articles with the specified category
-    const filteredArticles = articles.filter(article => article.category === Number(category));
+    const filteredArticles = articles
+      .filter(article => article.category === Number(category))
+      .map(article => addCategoryToArticle(article)); // Add category name to each article
+    
     if (filteredArticles.length > 0) {
       resolve(filteredArticles);
     } else {
@@ -66,7 +74,9 @@ function getArticlesByMinDate(minDateStr) {
   return new Promise((resolve, reject) => {
     // Filter the articles array to get articles that are newer than the specified min date
     const minDate = new Date(minDateStr);
-    const filteredArticles = articles.filter(article => new Date(article.articleDate) >= minDate);
+    const filteredArticles = articles
+      .filter(article => new Date(article.articleDate) >= minDate)
+      .map(article => addCategoryNameToArticle(article)); // Add category name to each article
 
     // Check if the filtered articles array has any results
     if (filteredArticles.length > 0) {
@@ -83,12 +93,19 @@ function getArticlesById(id) {
     // Check if the article with the input ID exists in the articles array
     const foundArticle = articles.find(article => article.id === Number(id));
     if (foundArticle) {
-      resolve(foundArticle);
+      resolve(addCategoryNameToArticle(foundArticle));
     } else {
       reject("no results returned");
     }
   });
 };
+
+// Function to get category name by ID
+function getCategoryNameById(id) {
+  const category = categories.find(category => category.id === id);
+  return category ? category.name : "Unknown Category";
+}
+
 
 /* Modifiers */
 // Function to add a new article
@@ -100,10 +117,21 @@ function addArticle(articleData) {
 
     // Push the new article to the articles array
     articles.push(articleData);
-    resolve(articleData);
+    resolve(addCategoryNameToArticle(articleData));
   });
 };
 
+
+/* Helpers */
+function addCategoryToArticle(article) {
+  const category = categories.find(category => category.id === article.category);
+  return {
+    ...article,
+    categoryName: category.Name,
+    category: article.category
+  };
+}
+
 /* Exports */
 // Export the functions as an object to make them available to other files
-module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById };
+module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById, getCategoryNameById };
