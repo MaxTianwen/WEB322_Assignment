@@ -37,7 +37,7 @@ function initialize() {
 function getPublishedArticles() {
   return Promise.resolve(articles
     .filter(article => article.published)) // Return only articles with `published: true`
-    .map(article => addCategoryToArticle(article) // Add category name to each article
+    .map(article => convertPublishedToYesNo(addCategoryToArticle(article)) // Add category name to each article
   );
 }
 
@@ -49,7 +49,7 @@ function getCategories() {
 // Function to get all articles
 function getArticles() {
   return Promise.resolve(articles
-    .map(article => addCategoryToArticle(article)) // Add category name to each article
+    .map(article => convertPublishedToYesNo(addCategoryToArticle(article))) // Add category name to each article
   );
 }
 
@@ -59,7 +59,7 @@ function getArticlesByCategory(category) {
     // Filter the articles array to get only articles with the specified category
     const filteredArticles = articles
       .filter(article => article.category === Number(category))
-      .map(article => addCategoryToArticle(article)); // Add category name to each article
+      .map(article => convertPublishedToYesNo(addCategoryToArticle(article))); // Add category name to each article
     
     if (filteredArticles.length > 0) {
       resolve(filteredArticles);
@@ -76,7 +76,7 @@ function getArticlesByMinDate(minDateStr) {
     const minDate = new Date(minDateStr);
     const filteredArticles = articles
       .filter(article => new Date(article.articleDate) >= minDate)
-      .map(article => addCategoryNameToArticle(article)); // Add category name to each article
+      .map(article => convertPublishedToYesNo(addCategoryToArticle(article)));// Add category name to each article
 
     // Check if the filtered articles array has any results
     if (filteredArticles.length > 0) {
@@ -93,36 +93,31 @@ function getArticlesById(id) {
     // Check if the article with the input ID exists in the articles array
     const foundArticle = articles.find(article => article.id === Number(id));
     if (foundArticle) {
-      resolve(addCategoryNameToArticle(foundArticle));
+      resolve(convertPublishedToYesNo(addCategoryToArticle(foundArticle)));
     } else {
       reject("no results returned");
     }
   });
 };
 
-// Function to get category name by ID
-function getCategoryNameById(id) {
-  const category = categories.find(category => category.id === id);
-  return category ? category.name : "Unknown Category";
-}
-
 
 /* Modifiers */
 // Function to add a new article
-function addArticle(articleData) {
+function addArticle(article) {
   return new Promise((resolve, reject) => {
     // Check if the new article is published and set a new id for it
-    articleData.published = articleData.published ? true : false;
-    articleData.id = articles.length + 1;
+    article.published = article.published ? true : false;
+    article.id = articles.length + 1;
 
     // Push the new article to the articles array
-    articles.push(articleData);
-    resolve(addCategoryNameToArticle(articleData));
+    articles.push(article);
+    resolve(article => convertPublishedToYesNo(addCategoryToArticle(article)));
   });
 };
 
 
 /* Helpers */
+// Change the category ID to the category name in each article
 function addCategoryToArticle(article) {
   const category = categories.find(category => category.id === article.category);
   return {
@@ -132,6 +127,14 @@ function addCategoryToArticle(article) {
   };
 }
 
+// Display the published column with "Yes" or "No" instead of true or false
+function convertPublishedToYesNo(article) {
+  return {
+    ...article,
+    published: article.published ? "Yes" : "No"
+  };
+}
+
 /* Exports */
 // Export the functions as an object to make them available to other files
-module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById, getCategoryNameById };
+module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById, addCategoryToArticle, convertPublishedToYesNo };

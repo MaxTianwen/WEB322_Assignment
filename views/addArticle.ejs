@@ -25,10 +25,51 @@
         </div>
     </header>
 
-    <!-- Content Area -->
+<!-- Content Area -->
     <main class="container my-4">
         <div class="content p-4 bg-light">
-            <!-- TODO: Add Forms Here -->
+            <h2>Add Article</h2>
+            <form action="/articles/add" method="POST" enctype="multipart/form-data">
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Article Title</label>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Enter article title"
+                        required>
+                </div>
+
+                <!-- Content -->
+                <div class="mb-3">
+                    <label for="content" class="form-label">Article Content</label>
+                    <textarea id="content" name="content" class="form-control" rows="5"
+                        placeholder="Write your article content here..." required></textarea>
+                </div>
+
+                <!-- Category -->
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select id="category" name="category" class="form-select" required>
+                        <option value="News">News</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Entertainment">Entertainment</option>
+                    </select>
+                </div>
+
+                <!-- Publish -->
+                <div class="mb-3 form-check">
+                    <input type="checkbox" id="published" name="published" class="form-check-input">
+                    <label for="published" class="form-check-label">Publish this article</label>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="mb-3">
+                    <label for="featureImage" class="form-label">Featured Image</label>
+                    <input type="file" id="featureImage" name="featureImage" class="form-control" accept="image/*">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Add Article</button>
+            </form>
         </div>
     </main>
 

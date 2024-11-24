@@ -20,9 +20,10 @@ const upload = multer();
 
 // Set EJS as the templating engine
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 // Use Middleware
-app.use(express.static(path.join(__dirname + "public")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -83,9 +84,19 @@ app.get("/articles/add", (req, res) => {
 
 // Get articles by ID
 app.get("/articles/:id", (req, res) => {
-  storeData.getArticlesById(req.params.id)
-    .then(data => { res.json(data) })
-    .catch(err => { res.status(404).json({ message: `Article with ID ${req.params.id} not found`, error: err }) });
+    storeData.getArticlesById(req.params.id)
+        .then(article => {
+            if (article.published === "No") {
+                // Redirect to 404 page if the article is not published
+                res.status(404).render("404", { message: "Article not found." });
+            } else {
+                // Render the article page
+                res.render("article", { article: article });
+            }
+        })
+        .catch(err => {
+            res.status(404).render("404", { message: `Article with ID ${req.params.id} not found.` });
+        });
 });
 
 /* Handle the submitted form for article using cloudinary image storage */

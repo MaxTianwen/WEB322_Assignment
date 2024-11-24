@@ -12,12 +12,21 @@
     <%- include('partials/header', {page: '/article' }) %>
 
     <!-- Content Area -->
+    <!-- Content Area -->
     <main class="container my-4">
         <div class="content p-4 bg-light">
-            <h2>Article</h2>
-
-            
-            
+            <!-- Display Feature Image if available -->
+            <% if (article.featureImage) { %>
+                <div class="mb-4">
+                    <img src="<%= article.featureImage %>" alt="<%= article.title %>" class="img-fluid rounded">
+                </div>
+            <% } %>
+                <!-- Article Details -->
+                <h2><%= article.title %></h2>
+                <p><strong>Author: </strong><%= article.author %></p>
+                <p><strong>Category: </strong><%= article.category %></a></p>
+                <p><strong>Article Date: </strong><%= article.articleDate %></p>
+                <p><%= article.content %></p>
         </div>
     </main>
 
