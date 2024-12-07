@@ -6,7 +6,8 @@
       "author": "Alice Johnson",
       "published": true,
       "category": 1,
-      "articleDate": "2024-01-15"
+      "articleDate": "2024-01-15",
+      "featureImage": ""
     },
     {
       "id": 2,
@@ -15,7 +16,8 @@
       "author": "Bob Smith",
       "published": true,
       "category": 2,
-      "articleDate": "2024-01-20"
+      "articleDate": "2024-01-20",
+      "featureImage": ""
     },
     {
       "id": 3,
@@ -24,7 +26,8 @@
       "author": "Carol White",
       "published": false,
       "category": 3,
-      "articleDate": "2024-02-05"
+      "articleDate": "2024-02-05",
+      "featureImage": ""
     },
     {
       "id": 4,
@@ -33,7 +36,8 @@
       "author": "Dave Lee",
       "published": true,
       "category": 4,
-      "articleDate": "2024-02-10"
+      "articleDate": "2024-02-10",
+      "featureImage": ""
     },
     {
       "id": 5,
@@ -42,7 +46,8 @@
       "author": "Emma King",
       "published": false,
       "category": 5,
-      "articleDate": "2024-02-15"
+      "articleDate": "2024-02-15",
+      "featureImage": ""
     }
   ]
   

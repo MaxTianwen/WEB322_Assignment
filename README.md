@@ -10,7 +10,52 @@ https://web-322-assignment-ctw76f3g6-tianwen-wangs-projects.vercel.app/
 
 ## Prerequisites
 
-Make sure you have **Node.js** and **npm** installed on your machine.
+Make sure you have **Node.js**, **npm**, and a **Neon.tech** account to set up your PostgreSQL database.
+
+## Setting Up the Database
+
+1. **Create a Neon.tech account**: Visit [Neon.tech](https://neon.tech) and sign up for a free account.  
+
+2. **Create a new project**: After logging in, create a new project and give it a meaningful name (e.g., `cms_project`).  
+
+3. **Create a database**: Create a new database called `blog_database`.  
+
+4. **Obtain Database Credentials**: From your Neon.tech dashboard, copy the following connection details:
+    - Host  
+    - Database name  
+    - Username  
+    - Password  
+    - Port (default is 5432)  
+5. **Create Tables**: Use the SQL editor in Neon.tech or a PostgreSQL client like DBeaver or pgAdmin to create the following tables:  
+
+    - **Categories Table**: To store categories.
+    - **Articles Table**: To store articles and their data.
+
+### Example SQL for Creating Tables
+
+```sql
+-- Create Categories Table
+CREATE TABLE IF NOT EXISTS public.categories
+(
+    id integer NOT NULL,
+    "Name" character varying COLLATE pg_catalog."default",
+    CONSTRAINT categories_pkey PRIMARY KEY (id)
+)
+
+-- Create Articles Table
+CREATE TABLE IF NOT EXISTS public.articles
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 6 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    title character varying COLLATE pg_catalog."default",
+    content character varying COLLATE pg_catalog."default",
+    author character varying COLLATE pg_catalog."default",
+    published boolean,
+    category integer,
+    "articleDate" date,
+    "featureImage" character varying COLLATE pg_catalog."default",
+    CONSTRAINT articles_pkey PRIMARY KEY (id)
+)
+```
 
 ## Installation
 
@@ -39,7 +84,47 @@ Install these packages if not already done via `npm install`:
 ```bash
 npm install express
 npm install ejs
+npm install pg
+npm install multer
+npm install method-override
+npm install streamifier
 ```
+
+## Configure Database Credentials:
+
+Set up environment variables for the PostgreSQL credentials you obtained from Neon.tech:  
+
+DB_HOST  
+DB_NAME  
+DB_USER  
+DB_PASSWORD  
+DB_PORT (default is 5432)  
+
+You can create a .env file in the root directory of your project for this purpose:  
+
+DB_HOST=your_neon_host  
+DB_NAME=blog_database  
+DB_USER=your_neon_user  
+DB_PASSWORD=your_neon_password  
+DB_PORT=5432  
+
+## Database Set Up
+
+1. Configure PostgreSQL Connection:
+In content-service.js, configure the connection to PostgreSQL using the pg package and Neon.tech credentials.  
+
+2. Refactor Functions:
+Replace all JSON-based data handling with PostgreSQL queries. Here are some examples:
+
+3. CRUD Operations:
+All CRUD routes (GET, POST, PUT, DELETE) have been updated to interact with the PostgreSQL database.
+
+4. Routes Refactoring  
+GET /articles: Fetches all articles from the PostgreSQL database.  
+GET /categories: Fetches all categories from the PostgreSQL database.  
+POST /articles/add: Adds a new article to the database.  
+PUT /articles/:id: Updates an article in the database.  
+DELETE /articles/:id: Deletes an article from the database.  
 
 ## Running the Server
 

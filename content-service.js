@@ -1,4 +1,5 @@
 // Import the 'fs' module for interacting with the file system
+const { error } = require("console");
 const fs = require("fs");
 // Import Neon.tech database module
 const { Pool } = require('pg');
@@ -84,21 +85,27 @@ function getArticlesByMinDate(minDateStr) {
     return pool.query(
     'SELECT *\
     FROM articles\
-    WHERE articles.articleDate >= $1', [minDateStr]
+    WHERE articles.articleDate >= $[1]', [minDateStr]
   )
     .then(res => res.rows)
     .catch(() => Promise.reject('No results returned'));
 }
 
-// Function to get articles by ID
+// // Function to get articles by ID
 function getArticlesById(id) {
-    return pool.query(
-    'SELECT *\
-    FROM articles\
-    WHERE articles.id = $1', [id]
+  return pool.query(
+    `SELECT * FROM articles WHERE id = $1`, [id]
   )
-    .then(res => res.rows)
-    .catch(() => Promise.reject('No results returned'));
+  .then(res => {
+    if (res.rows.length === 0) {
+      return Promise.reject("No article found");
+    }
+    return res.rows[0];
+  })
+  .catch(err => {
+    console.error("Query failed:", err);
+    return Promise.reject("No results returned");
+  });
 }
 
 
@@ -106,20 +113,79 @@ function getArticlesById(id) {
 // Function to add a new article
 function addArticle(article) {
     const query = `
-        INSERT INTO articles (title, content, author, category, published, articleDate)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING *`;
+      INSERT INTO articles (title, content, author, category, published, "articleDate", "featureImage")
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING *`;
     const values = [
-        article.title,
-        article.content,
-        article.author,
-        article.category,
-        article.published || false,
-        article.articleDate || new Date()
+      article.title,
+      article.content,
+      article.author,
+      article.category,
+      article.published === 'on' ? true : false,
+      article.articleDate || new Date(),
+      article.featureImage || null
     ];
     return pool.query(query, values)
       .then(res => res.rows[0])
       .catch(() => Promise.reject('Failed to add article'));
+}
+
+// Function to update an article by ID
+function updateArticle(id, article) {
+  console.log('Updating article:', { id, article }); // Log input values
+  
+  const query = `
+    UPDATE articles
+    SET 
+      title = $1,
+      content = $2,
+      author = $3,
+      category = $4,
+      published = $5,
+      "articleDate" = $6,
+      "featureImage" = $7
+    WHERE id = $8
+    RETURNING *`;
+    
+  const values = [
+    article.title,
+    article.content,
+    article.author,
+    article.category,
+    article.published === 'true' || article.published === true,
+    article.articleDate,
+    article.featureImage,
+    id
+  ];
+  
+  console.log('Query values:', values);
+  
+  return pool.query(query, values)
+    .then(res => {
+      console.log('Query result:', res);
+      if (res.rowCount === 0) {
+        throw new Error(`No article found with ID: ${id}`);
+      }
+      return res.rows[0];
+    })
+    .catch(error => {
+      console.error('Database error:', error);
+      throw error;
+    });
+}
+
+
+
+// Function to delete an article by ID
+function deleteArticle(id) {
+  return pool.query('DELETE FROM articles WHERE id = $1 RETURNING *', [id])
+    .then(res => {
+        if (res.rowCount === 0) {
+            return Promise.reject('No article found to delete');
+        }
+        return res.rows[0];
+    })
+    .catch(() => Promise.reject('Failed to delete article'));
 }
 
 
@@ -144,4 +210,4 @@ function convertPublishedToYesNo(article) {
 
 /* Exports */
 // Export the functions as an object to make them available to other files
-module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById, addCategoryToArticle, convertPublishedToYesNo };
+module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById, addCategoryToArticle, convertPublishedToYesNo, updateArticle, deleteArticle };
