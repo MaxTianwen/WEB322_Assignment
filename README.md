@@ -108,6 +108,7 @@ DB_USER=your_neon_user
 DB_PASSWORD=your_neon_password  
 DB_PORT=5432  
 
+
 ## Database Set Up
 
 1. Configure PostgreSQL Connection:
