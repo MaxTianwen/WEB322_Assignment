@@ -44,14 +44,8 @@
                                         <td><%= new Date(article.articleDate).toISOString().split('T')[0] %></td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-info btn-sm edit-btn"
-                                                    data-article-id="<%= article.id %>">
-                                                    Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
-                                                    data-article-id="<%= article.id %>">
-                                                    Delete
-                                                </button>
+                                                <button type="button" class="btn btn-info btn-sm edit-btn"data-article-id="<%= article.id %>">Edit</button>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn" data-article-id="<%= article.id %>">Delete</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -60,77 +54,7 @@
                         </table>
                     <% } %>
 
-                <!-- Edit Modal -->
-                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Edit Article</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="editForm">
-                                    <input type="hidden" name="_method" value="PUT">
-                                    <!-- Title -->
-                                    <div class="form-group">
-                                        <label for="title">Article Title</label>
-                                        <input type="text" class="form-control" id="title" name="title" required>
-                                    </div>
 
-                                    <!-- Add Author field -->
-                                    <div class="form-group">
-                                        <label for="author">Author</label>
-                                        <input type="text" class="form-control" id="author" name="author" required>
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div class="form-group">
-                                        <label for="content">Article Content</label>
-                                        <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
-                                    </div>
-
-                                    <!-- Category -->
-                                    <div class="form-group">
-                                        <label for="category">Category</label>
-                                        <select class="form-control" id="category" name="category" required>
-                                            <% if (categories && categories.length> 0) { %>
-                                                <% categories.forEach(category=> { %>
-                                                    <option value="<%= category.id %>"><%= category.Name %></option>
-                                                <% }); %>
-                                            <% } %>
-                                        </select>
-                                    </div>
-
-                                    <!-- Published Status -->
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="published" name="published">
-                                            <label class="custom-control-label" for="published">Publish this article</label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Current Image -->
-                                    <div class="form-group" id="currentImageContainer">
-                                        <label>Current Feature Image</label>
-                                        <img id="currentImage" src="" alt="Current feature image" class="img-fluid mb-2" style="max-width: 200px;">
-                                    </div>
-
-                                    <!-- New Image -->
-                                    <div class="form-group">
-                                        <label for="featureImage">Update Feature Image</label>
-                                        <input type="file" class="form-control-file" id="featureImage" name="featureImage" accept="image/*">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="saveChanges">Save Changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </main>
 
@@ -139,9 +63,9 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <script>
+        <!-- <script>
             $(document).ready(function () {
-                    let currentArticleId = null;
+                    let selectedArticleId = null;
 
                     // Click of the Edit button
                     $('.edit-btn').click(async function () {
@@ -231,7 +155,7 @@
                     }
                 });
             });
-        </script>
+        </script> -->
 </body>
 
 </html>
