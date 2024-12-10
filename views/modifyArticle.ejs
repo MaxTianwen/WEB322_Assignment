@@ -58,89 +58,79 @@
                                     <% }); %>
                             </tbody>
                         </table>
-                        <% } %>
+                    <% } %>
 
-                            <!-- Edit Modal -->
-                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Edit Article</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="editForm">
-                                                <input type="hidden" name="_method" value="PUT">
-                                                <!-- Title -->
-                                                <div class="form-group">
-                                                    <label for="title">Article Title</label>
-                                                    <input type="text" class="form-control" id="title" name="title"
-                                                        required>
-                                                </div>
+                <!-- Edit Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Article</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <!-- Title -->
+                                    <div class="form-group">
+                                        <label for="title">Article Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" required>
+                                    </div>
 
-                                                <!-- Add Author field -->
-                                                <div class="form-group">
-                                                    <label for="author">Author</label>
-                                                    <input type="text" class="form-control" id="author" name="author" required>
-                                                </div>
+                                    <!-- Add Author field -->
+                                    <div class="form-group">
+                                        <label for="author">Author</label>
+                                        <input type="text" class="form-control" id="author" name="author" required>
+                                    </div>
 
-                                                <!-- Content -->
-                                                <div class="form-group">
-                                                    <label for="content">Article Content</label>
-                                                    <textarea class="form-control" id="content" name="content" rows="5"
-                                                        required></textarea>
-                                                </div>
+                                    <!-- Content -->
+                                    <div class="form-group">
+                                        <label for="content">Article Content</label>
+                                        <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                                    </div>
 
-                                                <!-- Category -->
-                                                <div class="form-group">
-                                                    <label for="category">Category</label>
-                                                    <select class="form-control" id="category" name="category" required>
-                                                        <% if (categories && categories.length> 0) { %>
-                                                            <% categories.forEach(category=> { %>
-                                                                <option value="<%= category.id %>">
-                                                                    <%= category.Name %>
-                                                                </option>
-                                                                <% }); %>
-                                                                    <% } %>
-                                                    </select>
-                                                </div>
+                                    <!-- Category -->
+                                    <div class="form-group">
+                                        <label for="category">Category</label>
+                                        <select class="form-control" id="category" name="category" required>
+                                            <% if (categories && categories.length> 0) { %>
+                                                <% categories.forEach(category=> { %>
+                                                    <option value="<%= category.id %>"><%= category.Name %></option>
+                                                <% }); %>
+                                            <% } %>
+                                        </select>
+                                    </div>
 
-                                                <!-- Published Status -->
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="published" name="published">
-                                                        <label class="custom-control-label" for="published">Publish this
-                                                            article</label>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Current Image -->
-                                                <div class="form-group" id="currentImageContainer">
-                                                    <label>Current Feature Image</label>
-                                                    <img id="currentImage" src="" alt="Current feature image"
-                                                        class="img-fluid mb-2" style="max-width: 200px;">
-                                                </div>
-
-                                                <!-- New Image -->
-                                                <div class="form-group">
-                                                    <label for="featureImage">Update Feature Image</label>
-                                                    <input type="file" class="form-control-file" id="featureImage"
-                                                        name="featureImage" accept="image/*">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" id="saveChanges">Save
-                                                Changes</button>
+                                    <!-- Published Status -->
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="published" name="published">
+                                            <label class="custom-control-label" for="published">Publish this article</label>
                                         </div>
                                     </div>
-                                </div>
+
+                                    <!-- Current Image -->
+                                    <div class="form-group" id="currentImageContainer">
+                                        <label>Current Feature Image</label>
+                                        <img id="currentImage" src="" alt="Current feature image" class="img-fluid mb-2" style="max-width: 200px;">
+                                    </div>
+
+                                    <!-- New Image -->
+                                    <div class="form-group">
+                                        <label for="featureImage">Update Feature Image</label>
+                                        <input type="file" class="form-control-file" id="featureImage" name="featureImage" accept="image/*">
+                                    </div>
+                                </form>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="saveChanges">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -153,7 +143,7 @@
             $(document).ready(function () {
                     let currentArticleId = null;
 
-                    // Handle Edit Button Click
+                    // Click of the Edit button
                     $('.edit-btn').click(async function () {
                         currentArticleId = $(this).data('article-id');
                         try {
@@ -163,12 +153,12 @@
                             }
                             const article = await response.json();
 
-                            // Populate the form with article data
+                            // Assign values to the form fields
                             $('#title').val(article.title);
-                            $('#author').val(article.author); // Add this line
+                            $('#author').val(article.author);
                             $('#content').val(article.content);
                             $('#category').val(article.category);
-                            $('#published').prop('checked', article.published === true); // Modified this line
+                            $('#published').prop('checked', article.published === true);
 
                             // Handle image display
                             if (article.featureImage) {
@@ -185,12 +175,12 @@
                         }
                     });
 
-                    // Handle Save Changes
+                    // Save changes button
                     $('#saveChanges').click(function () {
                         const formData = new FormData($('#editForm')[0]);
                         formData.append('currentImage', $('#currentImage').attr('src') || '');
 
-                        // Properly handle the published state
+                        // Publish status
                         formData.set('published', $('#published').is(':checked'));
 
                         fetch(`/articles/${currentArticleId}?_method=PUT`, {
@@ -213,7 +203,7 @@
                             });
                     });
                 
-                // Handle Delete Button Click
+                // Click of Delete Button
                 $('.delete-btn').click(function () {
                     const articleId = $(this).data('article-id');
                     if (confirm('Are you sure you want to delete this article?')) {
