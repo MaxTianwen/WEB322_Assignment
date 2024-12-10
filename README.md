@@ -16,7 +16,7 @@ Make sure you have **Node.js**, **npm**, and a **Neon.tech** account to set up y
 
 1. **Create a Neon.tech account**: Visit [Neon.tech](https://neon.tech) and sign up for a free account.  
 
-2. **Create a new project**: After logging in, create a new project and give it a meaningful name (e.g., `cms_project`).  
+2. **Create a new project**: After logging in, create a new project and give it a meaningful name (e.g., `new_project`).  
 
 3. **Create a database**: Create a new database called `blog_database`.  
 
@@ -29,9 +29,13 @@ Make sure you have **Node.js**, **npm**, and a **Neon.tech** account to set up y
 5. **Create Tables**: Use the SQL editor in Neon.tech or a PostgreSQL client like DBeaver or pgAdmin to create the following tables:  
 
     - **Categories Table**: To store categories.
-    - **Articles Table**: To store articles and their data.
+    - **Articles Table**: To store articles.
 
 ### Example SQL for Creating Tables
+
+All the tables are created using pgAdmin4.  
+
+If you want to create tables using JS, plz reference the following example code:  
 
 ```sql
 -- Create Categories Table
@@ -115,17 +119,21 @@ DB_PORT=5432
 In content-service.js, configure the connection to PostgreSQL using the pg package and Neon.tech credentials.  
 
 2. Refactor Functions:
-Replace all JSON-based data handling with PostgreSQL queries. Here are some examples:
+Replace all JSON-based data handling with PostgreSQL queries.
 
 3. CRUD Operations:
 All CRUD routes (GET, POST, PUT, DELETE) have been updated to interact with the PostgreSQL database.
 
-4. Routes Refactoring  
+4. Routes Refactoring:  
 GET /articles: Fetches all articles from the PostgreSQL database.  
 GET /categories: Fetches all categories from the PostgreSQL database.  
 POST /articles/add: Adds a new article to the database.  
 PUT /articles/:id: Updates an article in the database.  
 DELETE /articles/:id: Deletes an article from the database.  
+
+5. PGadmin 4:  
+Adding data to the database can be done either using JS or by converting json file to .csv and adding in PGadmin4
+
 
 ## Running the Server
 
@@ -146,3 +154,5 @@ node index.js
 3. Added Article page to view each single article properly.
 
 4. Optimized pages style.
+
+5. Converted all the data into tables in PostgreSQL.
