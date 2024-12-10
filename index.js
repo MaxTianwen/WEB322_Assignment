@@ -3,10 +3,8 @@ const multer = require("multer");
 const path = require("path");
 const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
-// Import the custom data handling module, assumed to manage categories and articles
 const storeData = require("./content-service");
 const methodOverride = require('method-override');
-const e = require("express");
 
 const app = express();
 const HTTP_PORT = process.env.PORT || 3838;
@@ -43,9 +41,9 @@ app.get("/about", (req, res) => {
 app.get("/categories", (req, res) => {
   storeData.getCategories()
     .then(data => {
-      res.render("categories", { categories: data }); // Render categories.ejs
+      res.render("categories", { categories: data });
     })
-    .catch(err => {
+    .catch(() => {
       res.status(404).render("404", { message: "No categories found." });
     });
 });
@@ -70,7 +68,7 @@ app.get("/articles", (req, res) => {
       // Add category names to articles
       const articlesWithCategories = articles.map(article => ({
         ...article,
-        categoryName: categories.find(cat => cat.id === article.category)?.Name || 'Uncategorized'
+        categoryName: categories.find(cat => cat.id === article.category).Name
       }));
       
       res.render("articles", { articles: articlesWithCategories });
@@ -83,8 +81,6 @@ app.get("/articles", (req, res) => {
       });
     });
 });
-
-
 
 // Route for the "addArticle" endpoint, serving the "add-article.html" file
 app.get("/articles/add", (req, res) => {
