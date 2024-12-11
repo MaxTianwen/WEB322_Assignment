@@ -23,8 +23,8 @@
                 <!-- Article Details -->
                 <h2><%= article.title %></h2>
                 <p><strong>Author: </strong><%= article.author %></p>
-                <p><strong>Category: </strong><%= article.category %></a></p>
-                <p><strong>Article Date: </strong><%= article.articleDate %></p>
+                <p><strong>Category: </strong><%= article.categoryName %></a></p>
+                <p><strong>Article Date: </strong><%= article.articleDate.toISOString().split('T')[0] %></p>
                 <p><%= article.content %></p>
         </div>
     </main>

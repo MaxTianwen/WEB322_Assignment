@@ -32,12 +32,12 @@ app.get("/", (req, res) => {
     res.redirect("/about");
 });
 
-// Route for the "/about" page, serving the "about.html" file
+// Route for the "/about" page
 app.get("/about", (req, res) => {
     res.render("about");
 });
 
-// Route for the "/categories" endpoint, returning categories in JSON format
+// Route for the "/categories" page
 app.get("/categories", (req, res) => {
     storeData.getCategories()
         .then(data => {
@@ -48,42 +48,8 @@ app.get("/categories", (req, res) => {
         });
 });
 
-// Route for the "/articles" endpoint
-app.get("/articles", (req, res) => {
-    const { category, minDate } = req.query;
 
-    // Get articles return based on the query parameters
-    if (category) {
-        retArticles = storeData.getArticlesByCategory(category);
-    } else if (minDate) {
-        retArticles = storeData.getArticlesByMinDate(minDate);
-    } else {
-        retArticles = storeData.getArticles();
-    }
-
-    // Call the function to get articles with category names
-    getArticlesWithCategoryNames();
-});
-
-// Get articles by ID
-app.get("/articles/:id", (req, res) => {
-    storeData.getArticlesById(req.params.id)
-        .then(article => {
-            if (!article.published) {
-                // If the article is not published, show the 404 page
-                res.status(404).render("404", { message: "Article not found." });
-                return;
-            }
-            // Add category name and convert published status for rendering
-            const articleWithCategoryName = storeData.addCategoryToArticle(article);
-            res.render("article", { article: articleWithCategoryName });
-        })
-        .catch(() => {
-            res.status(404).render("404", { message: `Article with ID ${req.params.id} not found.` });
-        });
-});
-
-// Route for the "addArticle" endpoint
+// Route for the "addArticle" page
 app.get("/articles/add", (req, res) => {
     storeData.getCategories()
         .then(categories => {
@@ -96,10 +62,76 @@ app.get("/articles/add", (req, res) => {
 
 // Route to display the modify article page
 app.get("/articles/modify", (req, res) => {
-    // Doing the same thing as the "/articles" endpoint
-    getArticlesWithCategoryNames();
+    // Doing the same thing as the "/articles" route, but rendering the modify page
+    retArticles = storeData.getArticles();
+    retArticles
+        .then(articles => {
+            return storeData.getCategories()
+                .then(categories => {
+                    let articlesWithCategoryNames = articles.map(article => ({
+                        ...article,
+                        categoryName: categories.find(cat => cat.id === article.category).Name
+                    }));
+                    res.render("modifyArticle", {
+                        articles: articlesWithCategoryNames,
+                        categories: categories
+                    });
+                })
+        })
+        .catch(() => {
+            res.status(404).render("404", { message: "Failed to load articles or categories" });
+        });
 });
 
+// Get articles by ID
+app.get("/articles/:id", (req, res) => {
+    storeData.getArticlesById(req.params.id)
+        .then(article => {
+            if (!article) {
+                // If the article is not found, show the 404 page
+                res.status(404).render("404", { message: "Article not found." });
+                return;
+            }
+            // Add category name and convert published status for rendering
+            const articleWithCategoryName = storeData.addCategoryToArticle(article);
+            res.render("article", { article: articleWithCategoryName });
+        })
+        .catch(() => {
+            res.status(404).render("404", { message: `Article with ID ${req.params.id} not found.` });
+        });
+});
+
+// Route for the "/articles" page
+app.get("/articles", (req, res) => {
+    const { category, minDate } = req.query;
+    
+    // Get articles return based on the query parameters
+    if (category) {
+        retArticles = storeData.getArticlesByCategory(category);
+    } else if (minDate) {
+        retArticles = storeData.getArticlesByMinDate(minDate);
+    } else {
+        retArticles = storeData.getArticles();
+    }
+    
+    retArticles
+        .then(articles => {
+            return storeData.getCategories()
+                .then(categories => {
+                    let articlesWithCategoryNames = articles.map(article => ({
+                        ...article,
+                        categoryName: categories.find(cat => cat.id === article.category).Name
+                    }));
+                    res.render("articles", {
+                        articles: articlesWithCategoryNames,
+                        categories: categories
+                    });
+                })
+        })
+        .catch(() => {
+            res.status(404).render("404", { message: "Failed to load articles or categories" });
+        });
+});
 
 /* Modify the article */
 // Update specific article by ID
@@ -125,18 +157,15 @@ app.put("/articles/:id", upload.single("featureImage"), (req, res) => {
 
     processUpdate()   
         .then(imageUrl => {
-            // Create a new date object and format it to YYYY-MM-DD
-            const formattedDate = new Date().toISOString().split('T')[0];
-
             // Create an object to store the updated article data
             const articleData = {
                 title: req.body.title,
                 content: req.body.content,
                 author: req.body.author,
                 category: req.body.category,
-                published: req.body.published === 'true',
+                published: req.body.published === true || req.body.published === 'true',
                 featureImage: imageUrl,
-                articleDate: formattedDate
+                articleDate: new Date()
         };
         
         // Call the function to update the article and return
@@ -227,10 +256,8 @@ app.post("/articles/add", upload.single("featureImage"), (req, res) => {
 
 /* Helper Functions */
 // Get all articles and add category names to each of them
-function getArticlesWithCategoryNames() {
-    let retArticles = storeData.getArticles();
-    
-    retArticles
+function getArticlesWithCategoryNames(articlePromise, res) {
+    articlePromise
         .then(articles => {
             return storeData.getCategories()
                 .then(categories => {
@@ -238,7 +265,10 @@ function getArticlesWithCategoryNames() {
                         ...article,
                         categoryName: categories.find(cat => cat.id === article.category).Name
                     }));
-                    res.render("modifyArticle", { articles: articlesWithCategoryNames });
+                    res.render("articles", {
+                        articles: articlesWithCategoryNames,
+                        categories: categories
+                    });
                 })
         })
         .catch(() => {

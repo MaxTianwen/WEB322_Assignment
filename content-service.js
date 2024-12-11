@@ -96,16 +96,13 @@ function getArticlesById(id) {
     return pool.query(
         `SELECT * FROM articles WHERE id = $1`, [id]
     )
-    .then(res => {
-        if (res.rows.length === 0) {
-            return Promise.reject("No article found");
-        }
-        return res.rows[0];
-    })
-    .catch(err => {
-        console.error("Query failed:", err);
-        return Promise.reject("No results returned");
-    });
+        .then(res => {
+            if (res.rows.length === 0) {
+                return Promise.reject("No article found");
+            }
+            return res.rows[0];
+        })
+        .catch(() => Promise.reject("No results returned"));
 }
 
 
@@ -195,14 +192,6 @@ function addCategoryToArticle(article) {
     };
 }
 
-// Display the published column with "Yes" or "No" instead of true or false
-function convertPublishedToYesNo(article) {
-    return {
-        ...article,
-        published: article.published ? "Yes" : "No"
-    };
-}
-
 /* Exports */
 // Export the functions as an object to make them available to other files
-module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById, addCategoryToArticle, convertPublishedToYesNo, updateArticle, deleteArticle };
+module.exports = { initialize, getCategories, getArticles, addArticle, getPublishedArticles, getArticlesByCategory, getArticlesByMinDate, getArticlesById, addCategoryToArticle, updateArticle, deleteArticle };
