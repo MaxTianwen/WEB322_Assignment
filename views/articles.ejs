@@ -38,7 +38,7 @@
                                 <td><%= article.author %></td>
                                 <td><%= article.published ? 'Yes' : 'No' %></td>
                                 <td><a href="/articles?category=<%= article.category %>"><%= article.categoryName %></a></td>
-                                <td><%= new Date(article.articleDate).toISOString().split('T')[0] %></td>
+                                <td><%= article.articleDate %></td>
                             </tr>
                         <% }); %>
                     </tbody>

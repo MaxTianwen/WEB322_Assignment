@@ -12,7 +12,6 @@
     <%- include('partials/header', {page: '/article' }) %>
 
     <!-- Content Area -->
-    <!-- Content Area -->
     <main class="container my-4">
         <div class="content p-4 bg-light">
             <!-- Display Feature Image if available -->
@@ -25,7 +24,7 @@
                 <h2><%= article.title %></h2>
                 <p><strong>Author: </strong><%= article.author %></p>
                 <p><strong>Category: </strong><%= article.category %></a></p>
-                <p><strong>Article Date: </strong><%= new Date(article.articleDate).toISOString().split('T')[0] %></p>
+                <p><strong>Article Date: </strong><%= article.articleDate %></p>
                 <p><%= article.content %></p>
         </div>
     </main>
