@@ -56,76 +56,25 @@
     </main>
 
     <!-- Create Edit Modal Using BootStrap -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Article</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h3 class="modal-title">Edit Article</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="editForm">
                         <input type="hidden" name="_method" value="PUT">
-                        <!-- Title -->
-                        <div class="form-group">
-                            <label for="title">Article Title</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
-                        </div>
-    
-                        <!-- Add Author field -->
-                        <div class="form-group">
-                            <label for="author">Author</label>
-                            <input type="text" class="form-control" id="author" name="author" required>
-                        </div>
-    
-                        <!-- Content -->
-                        <div class="form-group">
-                            <label for="content">Article Content</label>
-                            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
-                        </div>
-    
-                        <!-- Category -->
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <select class="form-control" id="category" name="category" required>
-                                <% if (categories && categories.length> 0) { %>
-                                    <% categories.forEach(category=> { %>
-                                        <option value="<%= category.id %>">
-                                            <%= category.Name %>
-                                        </option>
-                                        <% }); %>
-                                            <% } %>
-                            </select>
-                        </div>
-    
-                        <!-- Published Status -->
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="published" name="published">
-                                <label class="custom-control-label" for="published">Publish this article</label>
-                            </div>
-                        </div>
-    
-                        <!-- Current Image -->
-                        <div class="form-group" id="currentImageContainer">
-                            <label>Current Feature Image</label>
-                            <img id="currentImage" src="" alt="Current feature image" class="img-fluid mb-2"
-                                style="max-width: 200px;">
-                        </div>
-    
-                        <!-- New Image -->
-                        <div class="form-group">
-                            <label for="featureImage">Update Feature Image</label>
-                            <input type="file" class="form-control-file" id="featureImage" name="featureImage"
-                                accept="image/*">
-                        </div>
+                        <!-- Add an hidden articleID input for update method-->
+                        <input type="hidden" name="id" id="articleId">
+                        <!-- Include Form Body -->
+                        <%- include('partials/forms', {page: '/forms' }) %>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="saveChanges">Save Changes</button>
+                    <button type="button" class="btn btn-primary" id="save-btn">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -134,100 +83,141 @@
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- <script>
-        $(document).ready(function () {
-                let selectedArticleId = null;
+    <!-- Events when clicking edit/delete button -->
+    <script>
+        // Wait until DOM has been fully loaded
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Get Edit Buttons of all articles
+            const editBtns = document.getElementsByClassName('edit-btn');
+            // Get Delete Buttons of all articles
+            const deleteBtns = document.getElementsByClassName('delete-btn');
+            // Get Edit Modal
+            const editModal = document.getElementById('editModal');
+            // Get Save Changes Button
+            const saveChangesBtn = document.getElementById('save-btn');
+            // Get Cancel Button
+            const cancelBtn = document.getElementById('cancel-btn');
+            // Initialize the edit modal
+            let modal = null;
 
-                // Click of the Edit button
-                $('.edit-btn').click(async function () {
-                    currentArticleId = $(this).data('article-id');
-                    try {
-                        const response = await fetch(`/api/articles/${currentArticleId}`);
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        const article = await response.json();
+            /* Edit Button Click Event */
+            // Add Event Listener to each Edit Button
+            Array.from(editBtns).forEach((editBtn) => {
+                editBtn.addEventListener('click', (event) => {
+                    // Get Article ID
+                    const articleId = editBtn.getAttribute('data-article-id');
+                    // Fetch Article Data Using Fetch API
+                    fetch(`/api/articles/${articleId}`)
+                        // Parse JSON response
+                        .then(response => response.json())
+                        // Fill the forms with fetched Article Data
+                        .then(data => {
+                            document.getElementById('articleId').value = data.id;
+                            document.getElementById('title').value = data.title;
+                            document.getElementById('author').value = data.author;
+                            document.getElementById('published').checked = data.published;
+                            document.getElementById('category').value = data.category;
+                            document.getElementById('content').value = data.content;
+                            document.getElementById('featureImage').value = data.featureImage;
 
-                        // Assign values to the form fields
-                        $('#title').val(article.title);
-                        $('#author').val(article.author);
-                        $('#content').val(article.content);
-                        $('#category').val(article.category);
-                        $('#published').prop('checked', article.published === true);
+                            // Show the Edit Modal with Bootstrap style
+                            modal = new bootstrap.Modal(editModal);
+                            modal.show();
+                        })
+                        // Error Handling
+                        .catch(() => window.alert('Failed to fetch article data'));
+                });
+            });
 
-                        // Handle image display
-                        if (article.featureImage) {
-                            $('#currentImage').attr('src', article.featureImage);
-                            $('#currentImageContainer').show();
-                        } else {
-                            $('#currentImageContainer').hide();
-                        }
+            /* Delete Button Click Event */
+            // Add Event Listener to each Delete Button
+            Array.from(deleteBtns).forEach((deleteBtn) => {
+                deleteBtn.addEventListener('click', (event) => {
+                    // Get Article ID
+                    let articleId = deleteBtn.getAttribute('data-article-id');
+                    // Get the row of clicked delete button in the table
+                    let row = deleteBtn.closest('tr');
 
-                        $('#editModal').modal('show');
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert('Failed to load article data');
+                    // Prompt user to confirm
+                    if (window.confirm('Are you sure to delete this article?')) {
+                        // Delete the article using Fetch API
+                        fetch(`/articles/${articleId}`, {
+                            // Use the overloaded DELETE method
+                            method: 'DELETE'
+                        })
+                            // Parse JSON response
+                            .then(response => response.json())
+                            // Remove the row from the table and show the message
+                            .then(data => {
+                                if (data.message === 'Article deleted successfully') {
+                                    row.remove();
+                                    window.alert('Article deleted successfully');
+                                } else {
+                                    window.alert('Failed to delete article');
+                                }
+                            })
+                            // Error Handling
+                            .catch(() => window.alert('Failed to delete article'));
                     }
-                });
+                })
+            });
 
-                // Save changes button
-                $('#saveChanges').click(function () {
-                    const formData = new FormData($('#editForm')[0]);
-                    formData.append('currentImage', $('#currentImage').attr('src') || '');
+            /* Save Changes Button Click Event */
+            // Add Event Listener to Save Changes Button
+            saveChangesBtn.addEventListener('click', (event) => {
+                // Retrieve the edit form
+                let form = document.getElementById('editForm');
+                // Create a FormData object to store the form data
+                let formData = new FormData(form); 
+                // Get the selected article ID
+                let articleId = formData.get('id');
 
-                    // Publish status
-                    formData.set('published', $('#published').is(':checked'));
+                // Add image to the form if it is valid
+                let featureImage = document.getElementById('featureImage');
+                if (featureImage) {
+                    formData.set('featureImage', featureImage.files[0]);
+                }
 
-                    fetch(`/articles/${currentArticleId}?_method=PUT`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.json().then(err => Promise.reject(err));
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            $('#editModal').modal('hide');
-                            location.reload(); // Reload the page to show updated data
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Failed to update article: ' + (error.message || 'Unknown error'));
-                        });
-                });
-            
-            // Click of Delete Button
-            $('.delete-btn').click(function () {
-                const articleId = $(this).data('article-id');
-                if (confirm('Are you sure you want to delete this article?')) {
-                    fetch(`/articles/${articleId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json'
+                // Update the checkbox of published status if it is changed
+                let publishedStatus = document.getElementById('published');
+                formData.set('published', publishedStatus.checked);
+
+                // Update the article using Fetch API
+                fetch(`/articles/${articleId}`, {
+                    // Use the overloaded PUT method
+                    method: 'PUT',
+                    // Send the form data
+                    body: formData
+                })
+                    // Parse JSON response
+                    .then(response => response.json())
+                    // Close the modal and show the message
+                    .then(data => {
+                        if (data.message === 'Article updated successfully') {
+                            // Hide the edit modal
+                            modal.hide();
+                            window.alert('Article updated successfully');
+                            // Refresh the page to reflect the changes
+                            window.location.reload();
+                        } else {
+                            window.alert('Failed to update article');
                         }
                     })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.json().then(err => Promise.reject(err));
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            // Remove the row from the table
-                            $(this).closest('tr').remove();
-                            alert('Article deleted successfully');
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Failed to delete article: ' + (error.message || 'Unknown error'));
-                        });
+                    // Error Handling
+                    .catch(() => window.alert('Failed to update article'));
+            });
+
+            /* Cancel Button Click Event */
+            // Add Event Listener to Cancel Button
+            cancelBtn.addEventListener('click', (event) => {
+                // Hide the edit modal
+                if (modal) {
+                    modal.hide();
                 }
             });
         });
-    </script> -->
+    </script>
 </body>
 </html>

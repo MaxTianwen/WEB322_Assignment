@@ -14,28 +14,28 @@ Make sure you have **Node.js**, **npm**, and a **Neon.tech** account to set up y
 
 ## Setting Up the Database
 
-1. **Create a Neon.tech account**: Visit [Neon.tech](https://neon.tech) and sign up for a free account.  
+1. **Create a Neon.tech account**: Visit [Neon.tech](https://neon.tech) and sign up for a free account.
 
-2. **Create a new project**: After logging in, create a new project and give it a meaningful name (e.g., `new_project`).  
+2. **Create a new project**: After logging in, create a new project and give it a meaningful name (e.g., `new_project`).
 
-3. **Create a database**: Create a new database called `blog_database`.  
+3. **Create a database**: Create a new database called `blog_database`.
 
 4. **Obtain Database Credentials**: From your Neon.tech dashboard, copy the following connection details:
-    - Host  
-    - Database name  
-    - Username  
-    - Password  
-    - Port (default is 5432)  
-5. **Create Tables**: Use the SQL editor in Neon.tech or a PostgreSQL client like DBeaver or pgAdmin to create the following tables:  
+   - Host
+   - Database name
+   - Username
+   - Password
+   - Port (default is 5432)
+5. **Create Tables**: Use the SQL editor in Neon.tech or a PostgreSQL client like DBeaver or pgAdmin to create the following tables:
 
-    - **Categories Table**: To store categories.
-    - **Articles Table**: To store articles.
+   - **Categories Table**: To store categories.
+   - **Articles Table**: To store articles.
 
 ### Example SQL for Creating Tables
 
-All the tables are created using pgAdmin4.  
+All the tables are created using pgAdmin4.
 
-If you want to create tables using JS, plz reference the following example code:  
+If you want to create tables using JS, plz reference the following example code:
 
 ```sql
 -- Create Categories Table
@@ -96,44 +96,42 @@ npm install streamifier
 
 ## Configure Database Credentials:
 
-Set up environment variables for the PostgreSQL credentials you obtained from Neon.tech:  
+Set up environment variables for the PostgreSQL credentials you obtained from Neon.tech:
 
 DB_HOST  
 DB_NAME  
 DB_USER  
 DB_PASSWORD  
-DB_PORT (default is 5432)  
+DB_PORT (default is 5432)
 
-You can create a .env file in the root directory of your project for this purpose:  
+You can create a .env file in the root directory of your project for this purpose:
 
 DB_HOST=your_neon_host  
 DB_NAME=blog_database  
 DB_USER=your_neon_user  
 DB_PASSWORD=your_neon_password  
-DB_PORT=5432  
-
+DB_PORT=5432
 
 ## Database Set Up
 
 1. Configure PostgreSQL Connection:
-In content-service.js, configure the connection to PostgreSQL using the pg package and Neon.tech credentials.  
+   In content-service.js, configure the connection to PostgreSQL using the pg package and Neon.tech credentials.
 
 2. Refactor Functions:
-Replace all JSON-based data handling with PostgreSQL queries.
+   Replace all JSON-based data handling with PostgreSQL queries.
 
 3. CRUD Operations:
-All CRUD routes (GET, POST, PUT, DELETE) have been updated to interact with the PostgreSQL database.
+   All CRUD routes (GET, POST, PUT, DELETE) have been updated to interact with the PostgreSQL database.
 
 4. Routes Refactoring:  
-GET /articles: Fetches all articles from the PostgreSQL database.  
-GET /categories: Fetches all categories from the PostgreSQL database.  
-POST /articles/add: Adds a new article to the database.  
-PUT /articles/:id: Updates an article in the database.  
-DELETE /articles/:id: Deletes an article from the database.  
+   GET /articles: Fetches all articles from the PostgreSQL database.  
+   GET /categories: Fetches all categories from the PostgreSQL database.  
+   POST /articles/add: Adds a new article to the database.  
+   PUT /articles/:id: Updates an article in the database.  
+   DELETE /articles/:id: Deletes an article from the database.
 
 5. PGadmin 4:  
-Adding data to the database can be done either using JS or by converting json file to .csv and adding in PGadmin4
-
+   Adding data to the database can be done either using JS or by converting json file to .csv and adding in PGadmin4
 
 ## Running the Server
 
@@ -156,3 +154,10 @@ node index.js
 4. Optimized pages style.
 
 5. Converted all the data into tables in PostgreSQL.
+
+6. Added modifyArticle page to edit or delete article.
+
+## Things need to improve
+
+1. Articles can only be modified once and be deleted. There might be something wrong with the database, which need to be  
+   fixed and improved later.

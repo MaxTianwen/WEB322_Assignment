@@ -136,7 +136,7 @@ app.get("/articles", (req, res) => {
 /* Modify the article */
 // Update specific article by ID
 app.put("/articles/:id", upload.single("featureImage"), (req, res) => {
-    let imageUrl = req.body.currentImage;
+    let imageUrl = req.body.featureImage;
 
     // Update the image to the cloudinary storage if it is valid
     const processUpdate = () => {
@@ -163,7 +163,7 @@ app.put("/articles/:id", upload.single("featureImage"), (req, res) => {
                 content: req.body.content,
                 author: req.body.author,
                 category: req.body.category,
-                published: req.body.published === true || req.body.published === 'true',
+                published: req.body.published === true,
                 featureImage: imageUrl,
                 articleDate: new Date()
         };
@@ -171,8 +171,8 @@ app.put("/articles/:id", upload.single("featureImage"), (req, res) => {
         // Call the function to update the article and return
         return storeData.updateArticle(req.params.id, articleData);
     })
-    .then(updatedArticle => {
-        res.json(updatedArticle);
+    .then(() => {
+        res.json({ message: "Article updated successfully" });
     })
     .catch(() => {
         res.status(404).json({ message: "Failed to update article" });
@@ -180,7 +180,7 @@ app.put("/articles/:id", upload.single("featureImage"), (req, res) => {
 });
 
 
-// Get the article when user clicks on the "Edit" button
+// Get the article when clicking Edit
 app.get("/api/articles/:id", (req, res) => {
     storeData.getArticlesById(req.params.id)
         .then(article => {

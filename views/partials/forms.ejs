@@ -1,0 +1,49 @@
+
+        <!-- Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Article Title</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Enter article title" required>
+        </div>
+
+        <!-- Content -->
+        <div class="mb-3">
+            <label for="content" class="form-label">Article Content</label>
+            <textarea id="content" name="content" class="form-control" rows="5"
+                placeholder="Write your article content here..." required></textarea>
+        </div>
+
+        <!-- Author -->
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" id="author" name="author" class="form-control" placeholder="Enter author name" required>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select id="category" name="category" class="form-select" required>
+                <% if (categories && categories.length> 0) { %>
+                    <% for (const category of categories) { %>
+                        <option value="<%= category.id %>">
+                            <%= category.Name %>
+                        </option>
+                    <% } %>
+                <% } else { %>
+                    <option value="" disabled>No categories available</option>
+                <% } %>
+            </select>
+        </div>
+
+        <!-- Published -->
+        <div class="mb-3 form-check">
+            <input type="checkbox" id="published" name="published" class="form-check-input">
+            <label for="published" class="form-check-label">Publish this article</label>
+        </div>
+
+        <!-- featureImage -->
+        <div class="mb-3">
+            <label for="featureImage" class="form-label">Featured Image</label>
+            <input type="file" id="featureImage" name="featureImage" class="form-control" accept="image/*">
+        </div>
+
+

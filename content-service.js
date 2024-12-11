@@ -52,21 +52,21 @@ function getPublishedArticles() {
         WHERE published = true'
     )
         .then(res => res.rows)
-        .catch(() => Promise.reject('No results returned'));
+        .catch(() => Promise.reject('No results'));
 }
 
 // Function to get all categories
 function getCategories() {
     return pool.query('SELECT * FROM categories')
         .then(res => res.rows)
-        .catch(() => Promise.reject('No results returned'));
+        .catch(() => Promise.reject('No results'));
 }
 
 // Function to get all articles
 function getArticles() {
     return pool.query('SELECT * FROM articles')
         .then(res => res.rows)
-        .catch(() => Promise.reject('No results returned'));
+        .catch(() => Promise.reject('No results'));
 }
 
 // Function to get articles by category
@@ -77,7 +77,7 @@ function getArticlesByCategory(category) {
         WHERE articles.category = $1', [category]
     )
         .then(res => res.rows)
-        .catch(() => Promise.reject('No results returned'));
+        .catch(() => Promise.reject('No results'));
 }
 
 // Function to get articles by min date
@@ -88,10 +88,10 @@ function getArticlesByMinDate(minDateStr) {
         WHERE articles.articleDate >= $[1]', [minDateStr]
     )
         .then(res => res.rows)
-        .catch(() => Promise.reject('No results returned'));
+        .catch(() => Promise.reject('No results'));
 }
 
-// // Function to get articles by ID
+// Function to get articles by ID
 function getArticlesById(id) {
     return pool.query(
         `SELECT * FROM articles WHERE id = $1`, [id]
@@ -102,7 +102,7 @@ function getArticlesById(id) {
             }
             return res.rows[0];
         })
-        .catch(() => Promise.reject("No results returned"));
+        .catch(() => Promise.reject('No results'));
 }
 
 
@@ -145,26 +145,24 @@ function updateArticle(id, article) {
     RETURNING *`;
             
     const values = [
-            article.title,
-            article.content,
-            article.author,
-            article.category,
-            article.published === true,
-            article.articleDate,
-            article.featureImage,
-            id
+        article.title,
+        article.content,
+        article.author,
+        article.category,
+        article.published === true,
+        article.articleDate,
+        article.featureImage,
+        id
     ];
     
     return pool.query(query, values)
-            .then(res => {
-                    if (res.rowCount === 0) {
-                            throw new Error(`No article found with ID: ${id}`);
-                    }
-                    return res.rows[0];
-            })
-            .catch(error => {
-                    throw error;
-            });
+        .then(res => {
+            if (res.rowCount === 0) {
+                return Promise.reject(`No article found with ID: ${id}`);
+            }
+            return res.rows[0];
+        })
+        .catch(() => Promise.reject(`Failed to update article with ID: ${id}`));
 }
 
 
@@ -173,7 +171,7 @@ function deleteArticle(id) {
     return pool.query('DELETE FROM articles WHERE id = $1 RETURNING *', [id])
         .then(res => {
             if (res.rowCount === 0) {
-                return Promise.reject('No article found to delete');
+                return Promise.reject('No article found');
             }
             return res.rows[0];
         })
