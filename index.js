@@ -165,7 +165,7 @@ app.put("/articles/:id", upload.single("featureImage"), (req, res) => {
                 category: req.body.category,
                 published: req.body.published === true,
                 featureImage: imageUrl,
-                articleDate: new Date()
+                articleDate: req.body.articleDate
         };
         
         // Call the function to update the article and return
