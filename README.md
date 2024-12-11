@@ -20,7 +20,7 @@ Make sure you have **Node.js**, **npm**, and a **Neon.tech** account to set up y
 
 3. **Create a database**: Create a new database called `blog_database`.
 
-4. **Obtain Database Credentials**: From your Neon.tech dashboard, copy the following connection details:
+4. **Obtain Database Credentials**: From your Neon.tech dashboard, find the following credentials and details:
    - Host
    - Database name
    - Username
