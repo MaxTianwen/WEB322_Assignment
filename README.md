@@ -21,11 +21,12 @@ Make sure you have **Node.js**, **npm**, and a **Neon.tech** account to set up y
 3. **Create a database**: Create a new database called `blog_database`.
 
 4. **Obtain Database Credentials**: From your Neon.tech dashboard, find the following credentials and details:
-   - Host
-   - Database name
-   - Username
-   - Password
-   - Port (default is 5432)
+   - DB_HOST = your_neon_host  
+   - DB_NAME = blog_database  
+   - DB_USER = your_neon_user  
+   - DB_PASSWORD = your_neon_password  
+   - DB_PORT = 5432  
+
 5. **Create Tables**: Use the SQL editor in Neon.tech or a PostgreSQL client like DBeaver or pgAdmin to create the following tables:
 
    - **Categories Table**: To store categories.
@@ -94,30 +95,12 @@ npm install method-override
 npm install streamifier
 ```
 
-## Configure Database Credentials:
-
-Set up environment variables for the PostgreSQL credentials you obtained from Neon.tech:
-
-DB_HOST  
-DB_NAME  
-DB_USER  
-DB_PASSWORD  
-DB_PORT (default is 5432)
-
-You can create a .env file in the root directory of your project for this purpose:
-
-DB_HOST=your_neon_host  
-DB_NAME=blog_database  
-DB_USER=your_neon_user  
-DB_PASSWORD=your_neon_password  
-DB_PORT=5432
-
 ## Database Set Up
 
 1. Configure PostgreSQL Connection:
    In content-service.js, configure the connection to PostgreSQL using the pg package and Neon.tech credentials.
 
-2. Refactor Functions:
+2. Functions:
    Replace all JSON-based data handling with PostgreSQL queries.
 
 3. CRUD Operations:
@@ -126,9 +109,9 @@ DB_PORT=5432
 4. Routes Refactoring:  
    GET /articles: Fetches all articles from the PostgreSQL database.  
    GET /categories: Fetches all categories from the PostgreSQL database.  
-   POST /articles/add: Adds a new article to the database.  
-   PUT /articles/:id: Updates an article in the database.  
-   DELETE /articles/:id: Deletes an article from the database.
+   POST /articles/add: Adds a new article to the PostgreSQL database.  
+   PUT /articles/:id: Updates an article in the PostgreSQL database.  
+   DELETE /articles/:id: Deletes an article from the PostgreSQL database.
 
 5. PGadmin 4:  
    Adding data to the database can be done either using JS or by converting json file to .csv and adding in PGadmin4
@@ -141,7 +124,7 @@ DB_PORT=5432
 node index.js
 ```
 
-2. Open your browser to navigate to `http://localhost:3838`
+2. Open your browser and navigate to `http://localhost:3838`
 
 ## Revisions:
 
