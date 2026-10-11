@@ -1,4 +1,4 @@
-# CONTENT DESK · WEB322
+# CONTENT DESK
 
 An administrator-only article CMS built with Node.js, Express, EJS, PostgreSQL, Cloudinary and Tabler. The September 2026 upgrade adds a private Home dashboard, administrator sessions, a unified article table/gallery, a dedicated editor and regression tests. It retains the original server-rendered architecture.
 
